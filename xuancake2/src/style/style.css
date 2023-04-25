@@ -1,12 +1,14 @@
 
-
-
 body {
   font-family: "Poppins", sans-serif;
   color: #040000;
   background-color: #ffffff;
 }
-
+ .quantity{
+  margin-top: 6px;
+  margin-left: 6px;
+  margin-right: 6px;
+ }
 
 .font-poppins {
   font-family: "Poppins", sans-serif;
