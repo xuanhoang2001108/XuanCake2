@@ -1,6 +1,7 @@
 import React from "react";
 
 const Cake = () => {
+ 
   return (
     <div className="sub_page">
       <section className="cake_section layout_padding">
@@ -12,19 +13,23 @@ const Cake = () => {
         </div>
         <div className="container-fluid">
           <div className="cake_container">
+            
             <div className="box">
               <img src="images/product-1.jpg" alt="" />
               <div className="link_box">
-                <h5>Dozen cupcake</h5>
-                <div className="cake-price1">19$</div>
-                <a href="order.html">Buy Now</a>
+                <h5 className="name">Dozen cupcake</h5>
+                <div className="type">Sweet</div>
+                <div className="price">19$</div>
+                <hr/>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
+            
             <div className="box">
               <img src="images/product-2.jpg" alt="" />
               <div className="link_box">
                 <h5>Cookie and cream</h5> <div className="cake-price1">19$</div>
-                <a href="order.html">Buy Now</a>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
             <div className="box">
@@ -32,14 +37,14 @@ const Cake = () => {
               <div className="link_box">
                 <h5>Gluten free mini dozen</h5>{" "}
                 <div className="cake-price1">19$</div>
-                <a href="order.html">Buy Now</a>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
             <div className="box">
               <img src="images/product-4.jpg" alt="" />
               <div className="link_box">
                 <h5>Cookie dough</h5> <div className="cake-price1">19$</div>
-                <a href="order.html">Buy Now</a>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
             <div className="box">
@@ -47,28 +52,28 @@ const Cake = () => {
               <div className="link_box">
                 <h5>Vanilla salted caramel</h5>{" "}
                 <div className="cake-price1">19$</div>
-                <a href="order.html">Buy Now</a>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
             <div className="box">
               <img src="images/product-6.jpg  " alt="" />
               <div className="link_box">
                 <h5>German chocolate</h5> <div className="cake-price1">19$</div>
-                <a href="order.html">Buy Now</a>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
             <div className="box">
               <img src="images/product-7.jpg  " alt="" />
               <div className="link_box">
                 <h5>German chocolate</h5> <div className="cake-price1">19$</div>
-                <a href="order.html">Buy Now</a>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
             <div className="box">
               <img src="images/product-8.jpg  " alt="" />
               <div className="link_box">
                 <h5>German chocolate</h5> <div className="cake-price1">19$</div>
-                <a href="order.html">Buy Now</a>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
           </div>
@@ -85,56 +90,56 @@ const Cake = () => {
               <img src="images/product-1.jpg" alt="" />
               <div className="link_box">
                 <h5>Dozen cupcake</h5>
-                <a href="order.html">Buy Now</a>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
             <div className="box">
               <img src="images/product-2.jpg" alt="" />
               <div className="link_box">
                 <h5>Cookie and cream</h5>
-                <a href="order.html">Buy Now</a>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
             <div className="box">
               <img src="images/product-3.jpg" alt="" />
               <div className="link_box">
                 <h5>Gluten free mini dozen</h5>
-                <a href="order.html">Buy Now</a>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
             <div className="box">
               <img src="images/product-4.jpg" alt="" />
               <div className="link_box">
                 <h5>Cookie dough</h5>
-                <a href="order.html">Buy Now</a>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
             <div className="box">
               <img src="images/product-5.jpg" alt="" />
               <div className="link_box">
                 <h5>Vanilla salted caramel</h5>
-                <a href="order.html">Buy Now</a>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
             <div className="box">
               <img src="images/product-6.jpg  " alt="" />
               <div className="link_box">
                 <h5>German chocolate</h5>
-                <a href="order.html">Buy Now</a>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
             <div className="box">
               <img src="images/product-7.jpg  " alt="" />
               <div className="link_box">
                 <h5>German chocolate</h5>
-                <a href="order.html">Buy Now</a>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
             <div className="box">
               <img src="images/product-8.jpg  " alt="" />
               <div className="link_box">
                 <h5>German chocolate</h5>
-                <a href="order.html">Buy Now</a>
+                <a href="/Cart">Add to cart</a>
               </div>
             </div>
           </div>

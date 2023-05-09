@@ -587,7 +587,7 @@ pre code {
 }
 
 .row {
-  display: -ms-flexbox;
+ 
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -1867,8 +1867,7 @@ pre code {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2718,6 +2717,7 @@ fieldset:disabled a.btn {
   background-color: #007bff;
   border-color: #007bff;
 }
+
 
 .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-primary.dropdown-toggle:focus {
@@ -4581,8 +4581,8 @@ input[type="button"].btn-block {
 
 .card-body {
   -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  padding: 1.25rem;
+ 
+  padding: 1rem;
 }
 
 .card-title {
