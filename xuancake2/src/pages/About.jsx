@@ -4,42 +4,43 @@ import "react-alice-carousel/lib/alice-carousel.css";
 
 const handleDragStart = (e) => e.preventDefault();
 
-const items = [
-  <div style={{ textAlign: "center", fontSize: "20px", }}>
-    <b>Main Chef</b>
+const itemTestimonial = [];
+const itemStaff = [
+  <div style={{ textAlign: "center", fontSize: "20px" }}>
+    <div className="mb-2">Main Chef</div>
     <img
       src="images/team-1.jpg.webp"
       onDragStart={handleDragStart}
       role="presentation"
     />
-    <b> Hanry Bulter</b>
+    <span class="d-inline-flex mt-4">Hanry Bulter</span>
   </div>,
   <div style={{ textAlign: "center", fontSize: "20px" }}>
-    <b>Decorator</b>
+    <div className="mb-2">Decorator</div>
     <img
       src="images/team-2.jpg"
       onDragStart={handleDragStart}
       role="presentation"
     />
-    <b>Mary May</b>
+    <span class="d-inline-flex mt-4">Mary May</span>
   </div>,
   <div style={{ textAlign: "center", fontSize: "20px" }}>
-    <b>Decorator</b>
+    <div className="mb-2">Decorator</div>
     <img
       src="images/team-3.jpg"
       onDragStart={handleDragStart}
       role="presentation"
     />
-    <b> Jone Mark</b>
+    <span class="d-inline-flex mt-4">Jone Mark</span>
   </div>,
   <div style={{ textAlign: "center", fontSize: "20px" }}>
-    <b className="staff-position">Decorator</b>
+    <div className="mb-2">Decorator</div>
     <img
       src="images/team-4.jpg"
       onDragStart={handleDragStart}
       role="presentation"
     />
-    <b> Jame Hardy</b>
+    <span class="d-inline-flex mt-4">Jame Hardy</span>
   </div>,
 ];
 
@@ -102,8 +103,33 @@ const About = () => {
               <div className="img-box">
                 <AliceCarousel
                   mouseTracking
-                  items={items}
+                  items={itemStaff}
                   autoPlay="false"
+                  disableButtonsControls="true"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="slider_section layout_padding-bottom">
+        <div className="container ">
+          <div class="heading_container">
+            <h2>Our Customers Say</h2>
+            <hr />
+          </div>
+          <div
+            id="carouselExample2Controls"
+            className="carousel slide"
+            data-ride="carousel"
+          >
+            <div className="carousel-inner">
+              <div className="img-box">
+                <AliceCarousel
+                  mouseTracking
+                  items={itemTestimonial}
+                  autoPlay="false"
+                  infinite="false"
                   disableButtonsControls="true"
                 />
               </div>

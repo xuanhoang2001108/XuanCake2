@@ -67,15 +67,11 @@ const Header = () => {
                       </a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href="Testimonial">
-                        Testimonial
+                      <a className="nav-link" href="Cart">
+                       Cart
                       </a>
                     </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="Contact">
-                        Contact Us
-                      </a>
-                    </li>
+                 
                     <li className="nav-item">
                       <a className="nav-link" href="Order">
                         Order

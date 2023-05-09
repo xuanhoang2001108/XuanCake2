@@ -39,7 +39,6 @@ const Order = () => {
   // let handleChange = (e) => {
   //   setNum(e.target.value);
   // };
-  
 
   function incrementCount() {
     count = count + 1;
@@ -72,7 +71,7 @@ const Order = () => {
                 <h5 className="mb-0">Cart - 2 items</h5>
               </div>
               <div className="card-body">
-                <div className="row">
+                <div className="row"  >
                   <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
                     <div
                       className="bg-image hover-overlay hover-zoom ripple rounded"
@@ -88,48 +87,40 @@ const Order = () => {
                       </a>
                     </div>
                   </div>
-                  <div>
+                  <div style={{flex:1 }}>
                     <p>
                       <strong>Cuppy cake</strong>
                     </p>
-                    <div
-                      style={{
-                        display: "flex",
-
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div style={{ display: "grid", alignItems: "center" }}>
+                    <div>
+                      <div>
                         <label>
-                          {" "}
-                          Price: <label>{price}$ </label>
-                        </label>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <label style={{ marginRight: "15% " }}>Size:</label>
+                          Price: <strong style={{marginLeft: "33px"}} >{price}$ </strong>
+                        </label >
+                        <div  style={{display: "flex", textAlign:"center"}}>
+                          <label  >Size:</label>
                           <DropdownButton
                             id="dropdown-basic-button"
                             title={chooseSize}
-                            style={{ marginBottom: "5px" }}
+                            style={{ marginBottom: "5px", marginLeft: "8%"}}
                             onSelect={handleChangeSizeChange}
                           >
                             <DropdownItem eventKey="M">M</DropdownItem>
                             <DropdownItem eventKey="L">L</DropdownItem>
                           </DropdownButton>
                         </div>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <label style={{ marginRight: "10%" }}>
+                        <div style={{ display: "flex"}}>
+                          <label style={{ marginRight: "5%" }}>
                             Quantity:
                           </label>
-                          <div className="row" style={{ marginRight: "40%" }}>
+                          <div className="row" style={{ marginRight: "55%" }}>
                             <div className="input-group">
                               <div className="input-group-prepend">
                                 <button
                                   className="btn btn-outline-primary"
                                   type="button"
-                                    onClick={event => {
-                                  
+                                  onClick={(event) => {
                                     decrementCount();
-                                }}
+                                  }}
                                 >
                                   -
                                 </button>
@@ -138,51 +129,48 @@ const Order = () => {
                                 type="text"
                                 className="form-control"
                                 value={count}
-                                
-                                
                               />
                               <div className="input-group-prepend">
                                 <button
                                   className="btn btn-outline-primary"
                                   type="button"
-                                  onClick={event => {
-                                    
+                                  onClick={(event) => {
                                     incrementCount();
-                                }}
+                                  }}
                                 >
                                   +
                                 </button>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            marginBottom: "6px",
-                          }}
-                        >
-                          <div style={{ display: "flex" }}></div>
+
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              marginBottom: "6px",
+                            }}
+                          ></div>
+                          <button
+                            type="button"
+                            className="btn btn-primary btn-sm me-1 mb-2"
+                            data-mdb-toggle="tooltip"
+                            title="Remove item"
+                            style={{marginRight: "5%"}}
+                          >
+                            <i className="fas fa-trash"></i>
+                          </button>
+                          {/* <button
+                            type="button"
+                            className="btn btn-danger btn-sm mb-2 ml-1"
+                            data-mdb-toggle="tooltip"
+                            title="Move to the wish list"
+                          >
+                            <i className="fas fa-heart"></i>
+                          </button> */}
                         </div>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      className="btn btn-primary btn-sm me-1 mb-2"
-                      data-mdb-toggle="tooltip"
-                      title="Remove item"
-                    >
-                      <i className="fas fa-trash"></i>
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-danger btn-sm mb-2"
-                      data-mdb-toggle="tooltip"
-                      title="Move to the wish list"
-                    >
-                      <i className="fas fa-heart"></i>
-                    </button>
                   </div>
                 </div>
 
