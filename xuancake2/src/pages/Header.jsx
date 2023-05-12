@@ -1,8 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
 import { Link } from "react-router-dom";
 import "react-alice-carousel/lib/alice-carousel.css";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
+import { useNavigate } from "react-router-dom";
 
-const Header = () => {
+function Header() {
+  const auth = getAuth();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState(null);
+  const [username, setUsername] = useState(null);
+  useEffect(() => {
+    // Lấy email đã lưu từ localStorage
+    const email = localStorage.getItem("email");
+    console.log("email from local storage:", email);
+    setEmail(email);
+    if (email) {
+      const username = email.split("@")[0];
+      setUsername(username);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        // Xóa email từ localStorage
+        localStorage.removeItem('email');
+        // Điều hướng về trang đăng nhập
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div>
       <div className="hero_area">
@@ -68,27 +99,35 @@ const Header = () => {
                     </li>
                     <li className="nav-item">
                       <a className="nav-link" href="Cart">
-                       Cart
+                        Cart
                       </a>
                     </li>
-                 
+
                     <li className="nav-item">
                       <a className="nav-link" href="Order">
                         Order
                       </a>
                     </li>
+
                     <li className="nav-item">
-                      <a className="nav-link" href="/">
-                        Log Out
-                      </a>
+                      <NavDropdown
+                        variant="dark"
+                        id="dropdown-basic-button"
+                        title={username}
+                        style={{ marginBottom: "5px" }}
+                      >
+                        <DropdownItem className="userLoggedIn">
+                          Order history
+                        </DropdownItem>
+                        <DropdownItem
+                          className="logoutButton"
+                          onClick={handleLogout}
+                        >
+                          Log Out
+                        </DropdownItem>
+                      </NavDropdown>
                     </li>
                   </ul>
-                  <form className="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
-                    <button
-                      className="btn  my-2 my-sm-0 nav_search-btn"
-                      type="submit"
-                    ></button>
-                  </form>
                 </div>
               </div>
             </nav>
@@ -97,6 +136,6 @@ const Header = () => {
       </section>
     </div>
   );
-};
+}
 
 export default Header;
