@@ -4,19 +4,7 @@ import "../style/responsive.css";
 import "../style/bootstrap.css";
 import "../style/style.css.map";
 import { useState } from "react";
-
-import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
-  MDBBtn,
-} from "mdb-react-ui-kit";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 
 const Order = () => {
@@ -39,7 +27,6 @@ const Order = () => {
   // let handleChange = (e) => {
   //   setNum(e.target.value);
   // };
-  
 
   function incrementCount() {
     count = count + 1;
@@ -126,10 +113,9 @@ const Order = () => {
                                 <button
                                   className="btn btn-outline-primary"
                                   type="button"
-                                    onClick={event => {
-                                  
+                                  onClick={(event) => {
                                     decrementCount();
-                                }}
+                                  }}
                                 >
                                   -
                                 </button>
@@ -138,17 +124,14 @@ const Order = () => {
                                 type="text"
                                 className="form-control"
                                 value={count}
-                                
-                                
                               />
                               <div className="input-group-prepend">
                                 <button
                                   className="btn btn-outline-primary"
                                   type="button"
-                                  onClick={event => {
-                                    
+                                  onClick={(event) => {
                                     incrementCount();
-                                }}
+                                  }}
                                 >
                                   +
                                 </button>

@@ -4,7 +4,6 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut,
 } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
 
 function SignIn() {
@@ -60,12 +59,8 @@ function SignIn() {
         const user = userCredential.user;
         console.log(user);
         alert(user.email + " Login successfully!");
+        localStorage.setItem("email", user.email);
         navigate("/HomePage");
-
-        // window.location.href="HomePage.js";
-        // document.getElementById('logout').style.display = 'block';
-
-        // ...
       })
       .catch((error) => {
         const errorCode = error.code;

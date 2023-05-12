@@ -1,7 +1,24 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
+import axios from "axios";
 
 const Cake = () => {
- 
+  const [storeData, setStoreData] = useState([]);
+  const getAllCakeData = async () => {
+    try {
+      console.log("aa");
+
+      const res = await axios.get(`http://localhost:5000/cake/getAll`);
+      if (res.status === 200) {
+        setStoreData(res.data);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  useEffect(() => {
+    getAllCakeData();
+  }, []);
+
   return (
     <div className="sub_page">
       <section className="cake_section layout_padding">
@@ -13,8 +30,24 @@ const Cake = () => {
         </div>
         <div className="container-fluid">
           <div className="cake_container">
-            
-            <div className="box">
+            {storeData.map((item) => {
+              if (item.type == "Sweet") {
+                return (
+                  <div className="box">
+                    <img src={item.image} alt="" />
+                    <div className="link_box">
+                      <h5 className="name">{item.name}</h5>
+                      <div className="type">{item.type}</div>
+                      <div className="price">{item.price}$</div>
+                      <hr />
+                      <a href="/Cart">Add to cart</a>
+                    </div>
+                  </div>
+                );
+              }
+            })}
+
+            {/* <div className="box">
               <img src="images/product-1.jpg" alt="" />
               <div className="link_box">
                 <h5 className="name">Dozen cupcake</h5>
@@ -23,9 +56,9 @@ const Cake = () => {
                 <hr/>
                 <a href="/Cart">Add to cart</a>
               </div>
-            </div>
-            
-            <div className="box">
+            </div> */}
+
+            {/* <div className="box">
               <img src="images/product-2.jpg" alt="" />
               <div className="link_box">
                 <h5>Cookie and cream</h5> <div className="cake-price1">19$</div>
@@ -75,7 +108,7 @@ const Cake = () => {
                 <h5>German chocolate</h5> <div className="cake-price1">19$</div>
                 <a href="/Cart">Add to cart</a>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="container">
