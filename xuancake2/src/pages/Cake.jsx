@@ -5,7 +5,7 @@ const Cake = () => {
   const [storeData, setStoreData] = useState([]);
   const getAllCakeData = async () => {
     try {
-      console.log("aa");
+      console.log();
 
       const res = await axios.get(`http://localhost:5000/cake/getAll`);
       if (res.status === 200) {
@@ -47,68 +47,7 @@ const Cake = () => {
               }
             })}
 
-            {/* <div className="box">
-              <img src="images/product-1.jpg" alt="" />
-              <div className="link_box">
-                <h5 className="name">Dozen cupcake</h5>
-                <div className="type">Sweet</div>
-                <div className="price">19$</div>
-                <hr/>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div> */}
-
-            {/* <div className="box">
-              <img src="images/product-2.jpg" alt="" />
-              <div className="link_box">
-                <h5>Cookie and cream</h5> <div className="cake-price1">19$</div>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src="images/product-3.jpg" alt="" />
-              <div className="link_box">
-                <h5>Gluten free mini dozen</h5>{" "}
-                <div className="cake-price1">19$</div>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src="images/product-4.jpg" alt="" />
-              <div className="link_box">
-                <h5>Cookie dough</h5> <div className="cake-price1">19$</div>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src="images/product-5.jpg" alt="" />
-              <div className="link_box">
-                <h5>Vanilla salted caramel</h5>{" "}
-                <div className="cake-price1">19$</div>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src="images/product-6.jpg  " alt="" />
-              <div className="link_box">
-                <h5>German chocolate</h5> <div className="cake-price1">19$</div>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src="images/product-7.jpg  " alt="" />
-              <div className="link_box">
-                <h5>German chocolate</h5> <div className="cake-price1">19$</div>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src="images/product-8.jpg  " alt="" />
-              <div className="link_box">
-                <h5>German chocolate</h5> <div className="cake-price1">19$</div>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div> */}
+           
           </div>
         </div>
         <div className="container">

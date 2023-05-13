@@ -26,7 +26,8 @@ function Header() {
     signOut(auth)
       .then(() => {
         // Xóa email từ localStorage
-        localStorage.removeItem('email');
+        alert(email+" "+" logged out successfully!")
+        localStorage.removeItem('email'); 
         // Điều hướng về trang đăng nhập
         navigate('/');
       })
@@ -117,7 +118,7 @@ function Header() {
                         style={{ marginBottom: "5px" }}
                       >
                         <DropdownItem className="userLoggedIn">
-                          Order history
+                          Order History
                         </DropdownItem>
                         <DropdownItem
                           className="logoutButton"
