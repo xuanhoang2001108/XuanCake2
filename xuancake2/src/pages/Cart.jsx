@@ -4,19 +4,7 @@ import "../style/responsive.css";
 import "../style/bootstrap.css";
 import "../style/style.css.map";
 import { useState } from "react";
-
-import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
-  MDBBtn,
-} from "mdb-react-ui-kit";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 
 const Order = () => {
@@ -71,7 +59,7 @@ const Order = () => {
                 <h5 className="mb-0">Cart - 2 items</h5>
               </div>
               <div className="card-body">
-                <div className="row"  >
+                <div className="row">
                   <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
                     <div
                       className="bg-image hover-overlay hover-zoom ripple rounded"
@@ -87,31 +75,32 @@ const Order = () => {
                       </a>
                     </div>
                   </div>
-                  <div style={{flex:1 }}>
+                  <div style={{ flex: 1 }}>
                     <p>
                       <strong>Cuppy cake</strong>
                     </p>
                     <div>
                       <div>
                         <label>
-                          Price: <strong style={{marginLeft: "33px"}} >{price}$ </strong>
-                        </label >
-                        <div  style={{display: "flex", textAlign:"center"}}>
-                          <label  >Size:</label>
+                          Price:{" "}
+                          <strong style={{ marginLeft: "33px" }}>
+                            {price}${" "}
+                          </strong>
+                        </label>
+                        <div style={{ display: "flex", textAlign: "center" }}>
+                          <label>Size:</label>
                           <DropdownButton
                             id="dropdown-basic-button"
                             title={chooseSize}
-                            style={{ marginBottom: "5px", marginLeft: "8%"}}
+                            style={{ marginBottom: "5px", marginLeft: "8%" }}
                             onSelect={handleChangeSizeChange}
                           >
                             <DropdownItem eventKey="M">M</DropdownItem>
                             <DropdownItem eventKey="L">L</DropdownItem>
                           </DropdownButton>
                         </div>
-                        <div style={{ display: "flex"}}>
-                          <label style={{ marginRight: "5%" }}>
-                            Quantity:
-                          </label>
+                        <div style={{ display: "flex" }}>
+                          <label style={{ marginRight: "5%" }}>Quantity:</label>
                           <div className="row" style={{ marginRight: "55%" }}>
                             <div className="input-group">
                               <div className="input-group-prepend">
@@ -156,7 +145,7 @@ const Order = () => {
                             className="btn btn-primary btn-sm me-1 mb-2"
                             data-mdb-toggle="tooltip"
                             title="Remove item"
-                            style={{marginRight: "5%"}}
+                            style={{ marginRight: "5%" }}
                           >
                             <i className="fas fa-trash"></i>
                           </button>

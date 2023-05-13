@@ -59,8 +59,12 @@ function SignIn() {
         const user = userCredential.user;
         console.log(user);
         alert(user.email + " Login successfully!");
+        navigate(
+          user.email === "admin@gmail.com" || "supplier@gmail.com"
+            ? "/Admin"
+            : "/HomePage"
+        );
         localStorage.setItem("email", user.email);
-        navigate("/HomePage");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -73,7 +77,7 @@ function SignIn() {
   return (
     <div
       className={
-        signUpMode ? "login_container" : "login_container sign-up-mode"
+        signUpMode ?  "login_container":"login_container sign-up-mode" 
       }
     >
       <div className="forms-container">
@@ -127,10 +131,7 @@ function SignIn() {
           </form>
           <form action="#" className="sign-up-form">
             <h2 className="title">Sign up</h2>
-            <div className="input-field">
-              <i className="fas fa-user"></i>
-              <input type="text" placeholder="Username" />
-            </div>
+
             <div className="input-field">
               <i className="fas fa-envelope"></i>
               <input
