@@ -5,7 +5,7 @@ import "../style/bootstrap.css";
 import "../style/style.css.map";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-
+import { Link } from "react-router-dom";
 const handleDragStart = (e) => e.preventDefault();
 
 const items = [
@@ -62,7 +62,7 @@ function Home() {
               </section>
             </div>
             <div className="btn-box">
-              <a href="Cake">Buy Now</a>
+              <Link to="/Cake">Buy Now</Link>
             </div>
           </div>
         </div>
@@ -87,7 +87,7 @@ function Home() {
                   being the champion of sweetness and goodness. I love it; you
                   love it; everyone loves it!
                 </p>
-                <a href="about.html">Read More</a>
+                <Link to="/About">Read More</Link>
               </div>
             </div>
           </div>
@@ -106,56 +106,64 @@ function Home() {
               <img src="images/product-1.jpg" alt="" />
               <div className="link_box">
                 <h5>Dozen cupcake</h5>
-                <a href="Cake">See more</a>
+                <Link to="/Cake" onClick={() => window.scrollTo(0, 0)}>See more</Link>
+
               </div>
             </div>
             <div className="box">
               <img src="images/product-2.jpg" alt="" />
               <div className="link_box">
                 <h5>Cookie and cream</h5>
-                <a href="Cake">See more</a>
+                <Link to="/Cake" onClick={() => window.scrollTo(0, 0)}>See more</Link>
+
               </div>
             </div>
             <div className="box">
               <img src="images/product-3.jpg" alt="" />
               <div className="link_box">
                 <h5>Gluten free mini dozen</h5>
-                <a href="Cake">See more</a>
+                <Link to="/Cake" onClick={() => window.scrollTo(0, 0)}>See more</Link>
+
               </div>
             </div>
             <div className="box">
               <img src="images/product-4.jpg" alt="" />
               <div className="link_box">
                 <h5>Cookie dough</h5>
-                <a href="Cake">See more</a>
+                <Link to="/Cake" onClick={() => window.scrollTo(0, 0)}>See more</Link>
+
               </div>
             </div>
             <div className="box">
               <img src="images/product-5.jpg" alt="" />
               <div className="link_box">
                 <h5>Vanilla salted caramel</h5>
-                <a href="Cake">See more</a>
+                <Link to="/Cake" onClick={() => window.scrollTo(0, 0)}>See more</Link>
+
               </div>
             </div>
             <div className="box">
               <img src="images/product-6.jpg  " alt="" />
               <div className="link_box">
                 <h5>German chocolate</h5>
-                <a href="Cake">See more</a>
+                <Link to="/Cake" onClick={() => window.scrollTo(0, 0)}>See more</Link>
+
               </div>
             </div>
             <div className="box">
               <img src="images/product-7.jpg" alt="" />
               <div className="link_box">
                 <h5>German chocolate</h5>
-                <a href="Cake">See more</a>
+                <Link to="/Cake" onClick={() => window.scrollTo(0, 0)}>See more</Link>
+
               </div>
             </div>
             <div className="box">
               <img src="images/product-8.jpg  " alt="" />
               <div className="link_box">
                 <h5>German chocolate</h5>
-                <a href="Cake">See more</a>
+                <Link to="/Cake" onClick={() => window.scrollTo(0, 0)}>See more</Link>
+
               </div>
             </div>
           </div>

@@ -1,8 +1,39 @@
 import { React, useEffect, useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Cake = () => {
   const [storeData, setStoreData] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const addToCart = (item) => {
+    let cartItems = localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems"))
+      : [];
+
+    // Tạo một bản sao mới của mảng cartItems
+    const updatedCartItems = [...cartItems];
+
+    // Kiểm tra xem mục đã có trong giỏ hàng hay chưa
+    const existingItemIndex = updatedCartItems.findIndex(
+      (cartItem) => cartItem._id === item._id
+    );
+
+    if (existingItemIndex !== -1) {
+      // Nếu mục đã có trong giỏ hàng, cập nhật số lượng
+      updatedCartItems[existingItemIndex].quantity++;
+    } else {
+      // Nếu mục chưa có trong giỏ hàng, thêm vào
+      updatedCartItems.push({ ...item, quantity: 1 });
+    }
+
+    // Cập nhật state cartItems và lưu vào local storage
+    setCartItems(updatedCartItems);
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    console.log(updatedCartItems);
+    toast.success("Add successfully!");
+  };
+
   const getAllCakeData = async () => {
     try {
       console.log();
@@ -12,7 +43,7 @@ const Cake = () => {
         setStoreData(res.data);
       }
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
   useEffect(() => {
@@ -21,6 +52,7 @@ const Cake = () => {
 
   return (
     <div className="sub_page">
+      <ToastContainer />
       <section className="cake_section layout_padding">
         <div className="container">
           <div className="heading_container">
@@ -30,24 +62,24 @@ const Cake = () => {
         </div>
         <div className="container-fluid">
           <div className="cake_container">
-            {storeData.map((item) => {
-              if (item.type == "Sweet") {
+            {storeData.map((item, index) => {
+              if (item.type === "Sweet") {
                 return (
-                  <div className="box">
+                  <div className="box" key={item._id}>
                     <img src={item.image} alt="" />
                     <div className="link_box">
                       <h5 className="name">{item.name}</h5>
                       <div className="type">{item.type}</div>
                       <div className="price">{item.price}$</div>
                       <hr />
-                      <a href="/Cart">Add to cart</a>
+                      <a className="my-link" onClick={() => addToCart(item)}>
+                        Add to cart{" "}
+                      </a>
                     </div>
                   </div>
                 );
               }
             })}
-
-           
           </div>
         </div>
         <div className="container">
@@ -56,7 +88,7 @@ const Cake = () => {
             <h2>Salty cakes</h2>
           </div>
         </div>
-        <div className="container-fluid">
+        {/* <div className="container-fluid">
           <div className="cake_container">
             <div className="box">
               <img src="images/product-1.jpg" alt="" />
@@ -115,8 +147,9 @@ const Cake = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
+     
     </div>
   );
 };
