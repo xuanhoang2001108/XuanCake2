@@ -1,219 +1,204 @@
-import React from "react";
-import "../style/style.css";
-import "../style/responsive.css";
-import "../style/bootstrap.css";
-import "../style/style.css.map";
-import { useState } from "react";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import DropdownItem from "react-bootstrap/esm/DropdownItem";
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBCardFooter,
+  MDBCardHeader,
+  MDBCardImage,
+  MDBCol,
+  MDBContainer,
+  MDBRow,
+  MDBTypography,
+} from "mdb-react-ui-kit";
+import React, { useState, useEffect } from "react";
+import { getAuth } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+import { useNavigate } from "react-router-dom";
 
-const Order = () => {
-  const [chooseSize, setSelectedSize] = useState("M");
-  function handleChangeSizeChange(eventKey) {
-    setSelectedSize(eventKey);
-  }
-
-  let [count, setCount] = useState(1);
-  // let incNum = () => {
-  //   if (num < 10) {
-  //     setNum(Number(num) + 1);
-  //   }
-  // };
-  // let decNum = () => {
-  //   if (num > 0) {
-  //     setNum(num - 1);
-  //   }
-  // };
-  // let handleChange = (e) => {
-  //   setNum(e.target.value);
-  // };
-
-  function incrementCount() {
-    count = count + 1;
-    setCount(count);
-    calTotalPrice();
-  }
-  function decrementCount() {
-    if (count > 0) {
-      count--;
-      setCount(count);
-      calTotalPrice();
+export default function OrderDetails3() {
+  const auth = getAuth();
+  const navigate = useNavigate();
+  const [showNoItemMessage, setShowNoItemMessage] = useState(false);
+  const [email, setEmail] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [itemDetails, setItemDetails] = useState([]); // Define the itemDetails state
+  const [hasSelectedItems, setHasSelectedItems] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0); 
+  useEffect(() => {
+    // Lấy email đã lưu từ localStorage
+    const email = localStorage.getItem("email");
+    console.log("email from local storage:", email);
+    setEmail(email);
+    if (email) {
+      const username = email.split("@")[0];
+      setUsername(username);
     }
-  }
-
-  let price = 7;
-  let tax = 1;
-  let [totalPrice, setTotalPrice] = useState(price);
-  function calTotalPrice() {
-    totalPrice = price * count + tax;
+    const storedItemDetails = JSON.parse(localStorage.getItem("itemDetails"));
+    if (storedItemDetails) {
+      setItemDetails(storedItemDetails);
+      setHasSelectedItems(true);
+      calculateTotalPrice(storedItemDetails);
+    } else {
+      setHasSelectedItems(false);
+    }
+    const storedHasSelectedItems = localStorage.getItem("hasSelectedItems");
+    if (storedHasSelectedItems === "false") {
+      setShowNoItemMessage(true);
+    }
+  }, []);
+  const handleCancelOrder = () => {
+    setItemDetails([]);
+    setHasSelectedItems(false);
+    setTotalPrice(0);
+    localStorage.removeItem("itemDetails"); // Xóa dữ liệu trong localStorage
+    localStorage.setItem("hasSelectedItems", "false");
+  };
+  const handleGoToShopping = () => {
+    navigate("/Cake"); // Chuyển hướng đến trang cake
+  };
+  const calculateTotalPrice = (items) => {
+    let totalPrice = 0;
+    items.forEach((item) => {
+      totalPrice += item.price;
+    });
     setTotalPrice(totalPrice);
-  }
-
+  };
   return (
-    <section className="h-100 ">
-      <div className="container py-5">
-        <div className="row d-flex justify-content-center my-4">
-          <div className="col-md-8">
-            <div className="card mb-4">
-              <div className="card-header py-3">
-                <h5 className="mb-0">Cart - 2 items</h5>
-              </div>
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                    <div
-                      className="bg-image hover-overlay hover-zoom ripple rounded"
-                      data-mdb-ripple-color="light"
+    <>
+      <section className="h-100" style={{ backgroundColor: "#eee" }}>
+        <MDBContainer className="py-5 h-100">
+          <MDBRow className="justify-content-center align-items-center h-100">
+            <MDBCol lg="10" xl="8">
+              <MDBCard style={{ borderRadius: "10px" }}>
+                <MDBCardHeader className="px-4 py-5">
+                  <MDBTypography tag="h5" className="text-muted mb-0">
+                    Thanks for your Order,{" "}
+                    <span style={{ color: "#a8729a" }}>{username}</span>!
+                  </MDBTypography>
+                </MDBCardHeader>
+                <MDBCardBody className="p-4">
+                  <div className="d-flex justify-content-between align-items-center mb-4">
+                    <p
+                      className="lead fw-normal mb-0"
+                      style={{ color: "#a8729a" }}
                     >
-                      <img
-                        src="/images/product-1.jpg"
-                        className="w-100"
-                        alt=""
-                      />
-                      <a href="#">
-                        <div className="mask"></div>
-                      </a>
-                    </div>
-                  </div>
-                  <div>
-                    <p>
-                      <strong>Cuppy cake</strong>
+                      Receipt
                     </p>
-                    <div
-                      style={{
-                        display: "flex",
-
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div style={{ display: "grid", alignItems: "center" }}>
-                        <label>
-                          {" "}
-                          Price: <label>{price}$ </label>
-                        </label>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <label style={{ marginRight: "15% " }}>Size:</label>
-                          <DropdownButton
-                            id="dropdown-basic-button"
-                            title={chooseSize}
-                            style={{ marginBottom: "5px" }}
-                            onSelect={handleChangeSizeChange}
-                          >
-                            <DropdownItem eventKey="M">M</DropdownItem>
-                            <DropdownItem eventKey="L">L</DropdownItem>
-                          </DropdownButton>
-                        </div>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <label style={{ marginRight: "10%" }}>
-                            Quantity:
-                          </label>
-                          <div className="row" style={{ marginRight: "40%" }}>
-                            <div className="input-group">
-                              <div className="input-group-prepend">
-                                <button
-                                  className="btn btn-outline-primary"
-                                  type="button"
-                                  onClick={(event) => {
-                                    decrementCount();
-                                  }}
-                                >
-                                  -
-                                </button>
-                              </div>
-                              <input
-                                type="text"
-                                className="form-control"
-                                value={count}
-                              />
-                              <div className="input-group-prepend">
-                                <button
-                                  className="btn btn-outline-primary"
-                                  type="button"
-                                  onClick={(event) => {
-                                    incrementCount();
-                                  }}
-                                >
-                                  +
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            marginBottom: "6px",
-                          }}
-                        >
-                          <div style={{ display: "flex" }}></div>
-                        </div>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      className="btn btn-primary btn-sm me-1 mb-2"
-                      data-mdb-toggle="tooltip"
-                      title="Remove item"
-                    >
-                      <i className="fas fa-trash"></i>
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-danger btn-sm mb-2"
-                      data-mdb-toggle="tooltip"
-                      title="Move to the wish list"
-                    >
-                      <i className="fas fa-heart"></i>
-                    </button>
                   </div>
-                </div>
+                  {itemDetails.map((item, index) => (
+                    <MDBCard className="shadow-0 border mb-4" key={index}>
+                      <MDBCardBody>
+                        <MDBRow>
+                          <MDBCol md="2">
+                            <MDBCardImage src={item.image} fluid alt="Cake" />
+                          </MDBCol>
+                          <MDBCol
+                            md="2"
+                            className="text-center d-flex justify-content-center align-items-center"
+                          >
+                            <p className="text-muted mb-0">{item.name} </p>
+                          </MDBCol>
 
-                <hr className="my-4" />
-              </div>
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div className="card mb-4">
-              <div className="card-header py-3">
-                <h5 className="mb-0">Summary</h5>
-              </div>
-              <div className="card-body">
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                    Products
-                    <span className="">1</span>
-                  </li>
-                  <li className="list-group-item d-flex justify-content-between align-items-center px-0">
-                    Tax
-                    <span>{tax}$</span>
-                  </li>
-                  <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                    <div>
-                      <strong>Total amount</strong>
-                      <strong>
-                        <p className="mb-0">(including VAT)</p>
-                      </strong>
+                          <MDBCol
+                            md="2"
+                            className="text-center d-flex justify-content-center align-items-center"
+                          >
+                            <p className="text-muted mb-0 small">
+                              {" "}
+                              Quantity: {item.quantity}
+                            </p>
+                          </MDBCol>
+                          <MDBCol
+                            md="2"
+                            className="text-center d-flex justify-content-center align-items-center"
+                          >
+                            <p className="text-muted mb-0 small">
+                              Price: {item.price}$
+                            </p>
+                          </MDBCol>
+                          <MDBCol
+                            md="2"
+                            className="text-center d-flex justify-content-center align-items-center"
+                          >
+                            <p className="text-muted mb-0 small">
+                              Type: {item.type}
+                            </p>
+                          </MDBCol>
+                          <MDBCol
+                            md="2"
+                            className="text-center d-flex justify-content-center align-items-center"
+                          >
+                            <p className="text-muted mb-0 small">Tax: 3$ </p>
+                          </MDBCol>
+                        </MDBRow>
+                        <hr
+                          className="mb-4"
+                          style={{ backgroundColor: "#e0e0e0", opacity: 1 }}
+                        />
+                      </MDBCardBody>
+                    </MDBCard>
+                  ))}
+                  {!hasSelectedItems && (
+                    <div className="d-flex justify-content-center mt-4">
+                      <p className="text-muted">You have no item now</p>
                     </div>
-                    <span>
-                      <strong>{totalPrice}$</strong>
-                    </span>
-                  </li>
-                </ul>
+                  )}
+                  <div className="col d-flex justify-content-end">
+                    {hasSelectedItems ? (
+                      <div
+                        className="btn btn_primary"
+                        onClick={handleCancelOrder}
+                      >
+                        Cancel order <i className="fa fa-times"></i>
+                      </div>
+                    ) : (
+                      <div
+                        className="btn btn_primary"
+                        onClick={handleGoToShopping}
+                      >
+                        Go to Shopping <i className="fa fa-arrow-right"></i>
+                      </div>
+                    )}
+                  </div>
 
-                <button
-                  type="button"
-                  className="btn btn-primary btn-lg btn-block"
+                  <div className="d-flex pt-2">
+                    <p className="text-muted mb-0">
+                      We will contact you when done!
+                    </p>
+                    <p
+                      className="text-muted mb-0"
+                      
+                    >
+                      <span className="fw-bold" style={{marginLeft:"315px"}}>Have a good day!</span>
+                    </p>
+                  </div>
+                </MDBCardBody>
+                <MDBCardFooter
+                  className="border-0 px-4 py-5"
+                  style={{
+                    backgroundColor: "#a8729a",
+                    borderBottomLeftRadius: "10px",
+                    borderBottomRightRadius: "10px",
+                  }}
                 >
-                  Create order
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+                  <MDBTypography
+                    tag="h5"
+                    className="d-flex align-items-center justify-content-between text-white text-uppercase mb-0"
+                  >
+                    <span className="h2 mb-0 ms-2">
+                      Total paid: {totalPrice}$(VAT)
+                    </span>{" "}
+                    <button
+                      type="button"
+                      className="btn  btn-outline-light btn-sl "
+                    >
+                      Confirm order
+                    </button>
+                  </MDBTypography>
+                </MDBCardFooter>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+      </section>
+    </>
   );
-};
-
-export default Order;
+}

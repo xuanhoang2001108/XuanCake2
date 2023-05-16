@@ -39,7 +39,18 @@ body {
 .layout_padding-bottom {
   padding-bottom: 90px;
 }
+.my-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ccc;
+  color: #fff;
+  cursor: pointer;
+}
 
+.my-link:hover {
+  background-color: #aaa;
+  cursor: pointer;
+}
 /*header section*/
 .sub_page .brand_box {
   position: relative;
@@ -295,8 +306,8 @@ a:focus {
   overflow: hidden;
 }
 .cake_section .cake_container .box img {
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   max-width: 100%;
   object-fit: cover;
 }

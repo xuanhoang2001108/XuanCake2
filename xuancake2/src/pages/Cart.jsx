@@ -1,53 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../style/style.css";
 import "../style/responsive.css";
 import "../style/bootstrap.css";
 import "../style/style.css.map";
-import { useState } from "react";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import DropdownItem from "react-bootstrap/esm/DropdownItem";
+const Cart = () => {
+  const navigate = useNavigate();
 
-const Order = () => {
-  const [chooseSize, setSelectedSize] = useState("M");
-  function handleChangeSizeChange(eventKey) {
-    setSelectedSize(eventKey);
-  }
+  const handleDecreaseQuantity = (itemId) => {
+    // Tìm kiếm sản phẩm trong giỏ hàng theo itemId
+    const updatedCartItems = cartItems.map((item) => {
+      if (item._id === itemId) {
+        // Giảm số lượng đi 1 đơn vị nếu số lượng hiện tại lớn hơn 1
+        if (item.quantity > 1) {
+          item.quantity -= 1;
+        }
+      }
+      return item;
+    });
 
-  let [count, setCount] = useState(1);
-  // let incNum = () => {
-  //   if (num < 10) {
-  //     setNum(Number(num) + 1);
-  //   }
-  // };
-  // let decNum = () => {
-  //   if (num > 0) {
-  //     setNum(num - 1);
-  //   }
-  // };
-  // let handleChange = (e) => {
-  //   setNum(e.target.value);
-  // };
+    // Cập nhật giỏ hàng với số lượng đã thay đổi
+    setCartItems(updatedCartItems);
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+  };
 
-  function incrementCount() {
-    count = count + 1;
-    setCount(count);
-    calTotalPrice();
-  }
-  function decrementCount() {
-    if (count > 0) {
-      count--;
-      setCount(count);
-      calTotalPrice();
-    }
-  }
+  const handleIncreaseQuantity = (itemId) => {
+    // Tìm kiếm sản phẩm trong giỏ hàng theo itemId
+    const updatedCartItems = cartItems.map((item) => {
+      if (item._id === itemId) {
+        // Tăng số lượng lên 1 đơn vị
+        item.quantity += 1;
+      }
+      return item;
+    });
 
-  let price = 7;
-  let tax = 1;
-  let [totalPrice, setTotalPrice] = useState(price);
-  function calTotalPrice() {
-    totalPrice = price * count + tax;
-    setTotalPrice(totalPrice);
-  }
+    // Cập nhật giỏ hàng với số lượng đã thay đổi
+    setCartItems(updatedCartItems);
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+  };
+
+  const [cartItems, setCartItems] = useState(
+    JSON.parse(localStorage.getItem("cartItems")) || []
+  );
+
+  const handleRemoveItem = (itemId) => {
+    const newCartItems = cartItems.filter((item) => item._id !== itemId);
+    setCartItems(newCartItems);
+
+    localStorage.setItem("cartItems", JSON.stringify(newCartItems));
+  };
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
+  const totalQuantity = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+  const taxPerQuantity = 3; // Giá trị thuế cho mỗi quantity
+
+  const totalAmount = cartItems.reduce(
+    (total, item) =>
+      total + item.price * item.quantity + taxPerQuantity * item.quantity,
+    0
+  );
+  const hasItemsInCart = cartItems.length > 0;
+  const handleCreateOrder = () => {
+    const itemDetails = cartItems.map((item) => {
+      return {
+        image: item.image,
+        type: item.type,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+      };
+    });
+    const itemNames = cartItems.map((item) => item.name);
+    // Save total amount and number of products to local storage
+    localStorage.setItem("totalAmount", totalAmount);
+    localStorage.setItem("numProducts", totalQuantity);
+    localStorage.setItem("itemDetails", JSON.stringify(itemDetails));
+    navigate("/Order");
+  };
+  const handleClearAll = () => {
+    // Xóa tất cả các sản phẩm trong giỏ hàng
+    setCartItems([]);
+    localStorage.removeItem("cartItems");
+  };
 
   return (
     <section className="h-100 ">
@@ -55,159 +95,136 @@ const Order = () => {
         <div className="row d-flex justify-content-center my-4">
           <div className="col-md-8">
             <div className="card mb-4">
-              <div className="card-header py-3">
-                <h5 className="mb-0">Cart - 2 items</h5>
-              </div>
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                    <div
-                      className="bg-image hover-overlay hover-zoom ripple rounded"
-                      data-mdb-ripple-color="light"
-                    >
-                      <img
-                        src="/images/product-1.jpg"
-                        className="w-100"
-                        alt=""
-                      />
-                      <a href="#">
-                        <div className="mask"></div>
-                      </a>
-                    </div>
+              <div className="card-header py-3 d-flex justify-content-between">
+                <h5 className="mb-0">Your Cart</h5>
+                {cartItems.length > 0 && (
+                  <div
+                    className="btn btn-primary btn-sm"
+                    onClick={handleClearAll}
+                  >
+                    Clear all
                   </div>
-                  <div style={{ flex: 1 }}>
-                    <p>
-                      <strong>Cuppy cake</strong>
-                    </p>
-                    <div>
-                      <div>
-                        <label>
-                          Price:{" "}
-                          <strong style={{ marginLeft: "33px" }}>
-                            {price}${" "}
-                          </strong>
+                )}
+              </div>
+
+              {cartItems.map((item) => (
+                <div className="card-body mb-0" key={item._id}>
+                  <div className="row">
+                    <div className="col-lg-4 col-md-12 mb-2 mb-lg-0">
+                      <div
+                        className="bg-image hover-overlay hover-zoom ripple rounded"
+                        data-mdb-ripple-color="light"
+                      >
+                        <img src={item.image} className="w-100 " alt="" />
+                      </div>
+                    </div>
+                    <div
+                      className="container d-flex item_info"
+                      style={{ flex: 1 }}
+                    >
+                      <div className="flex-grow-1 ">
+                        <strong className="row item_name">{item.name}</strong>
+                        <label className="row item_price">
+                          Price: {item.price}$
                         </label>
-                        <div style={{ display: "flex", textAlign: "center" }}>
-                          <label>Size:</label>
-                          <DropdownButton
-                            id="dropdown-basic-button"
-                            title={chooseSize}
-                            style={{ marginBottom: "5px", marginLeft: "8%" }}
-                            onSelect={handleChangeSizeChange}
-                          >
-                            <DropdownItem eventKey="M">M</DropdownItem>
-                            <DropdownItem eventKey="L">L</DropdownItem>
-                          </DropdownButton>
-                        </div>
-                        <div style={{ display: "flex" }}>
-                          <label style={{ marginRight: "5%" }}>Quantity:</label>
-                          <div className="row" style={{ marginRight: "55%" }}>
-                            <div className="input-group">
-                              <div className="input-group-prepend">
-                                <button
-                                  className="btn btn-outline-primary"
-                                  type="button"
-                                  onClick={(event) => {
-                                    decrementCount();
-                                  }}
-                                >
-                                  -
-                                </button>
-                              </div>
-                              <input
-                                type="text"
-                                className="form-control"
-                                value={count}
-                              />
-                              <div className="input-group-prepend">
-                                <button
-                                  className="btn btn-outline-primary"
-                                  type="button"
-                                  onClick={(event) => {
-                                    incrementCount();
-                                  }}
-                                >
-                                  +
-                                </button>
+                        <label className="row item_type">
+                          Type: {item.type}
+                        </label>
+                        <div className="row ml-0">
+                          <label className="row item_qty">
+                            Quantity:
+                            <div className="d-flex align-items-center ml-2 ">
+                              <div
+                                type="button"
+                                onClick={() => handleDecreaseQuantity(item._id)}
+                                style={{ marginRight: "10px" }}
+                              >
+                                <i className="fas fa-arrow-left " />
+                              </div>{" "}
+                              <label className="item_qty">
+                                {item.quantity}
+                              </label>
+                              <div
+                                type="button"
+                                onClick={() => handleIncreaseQuantity(item._id)}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <i className="fas fa-arrow-right " />
                               </div>
                             </div>
+                          </label>{" "}
+                          <div className="ml-auto mr-5">
+                            <button
+                              type="button"
+                              className="btn btn-primary btn-sm"
+                              data-mdb-toggle="tooltip"
+                              title="Remove item"
+                              style={{ marginRight: "5%" }}
+                              onClick={() => handleRemoveItem(item._id)}
+                            >
+                              <i className="fas fa-trash"></i>
+                            </button>
                           </div>
-
-                          <div
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              marginBottom: "6px",
-                            }}
-                          ></div>
-                          <button
-                            type="button"
-                            className="btn btn-primary btn-sm me-1 mb-2"
-                            data-mdb-toggle="tooltip"
-                            title="Remove item"
-                            style={{ marginRight: "5%" }}
-                          >
-                            <i className="fas fa-trash"></i>
-                          </button>
-                          {/* <button
-                            type="button"
-                            className="btn btn-danger btn-sm mb-2 ml-1"
-                            data-mdb-toggle="tooltip"
-                            title="Move to the wish list"
-                          >
-                            <i className="fas fa-heart"></i>
-                          </button> */}
                         </div>
                       </div>
                     </div>
                   </div>
+                  <hr className="my-3" />
                 </div>
+              ))}
 
-                <hr className="my-4" />
+              <div className="container">
+                <Link to="/Cake">
+                  <i className="fas fa-arrow-left "> </i> Go back to shop
+                </Link>
               </div>
             </div>
           </div>
-          <div className="col-md-4">
-            <div className="card mb-4">
-              <div className="card-header py-3">
-                <h5 className="mb-0">Summary</h5>
-              </div>
-              <div className="card-body">
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                    Products
-                    <span className="">1</span>
-                  </li>
-                  <li className="list-group-item d-flex justify-content-between align-items-center px-0">
-                    Tax
-                    <span>{tax}$</span>
-                  </li>
-                  <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                    <div>
-                      <strong>Total amount</strong>
-                      <strong>
-                        <p className="mb-0">(including VAT)</p>
-                      </strong>
-                    </div>
-                    <span>
-                      <strong>{totalPrice}$</strong>
-                    </span>
-                  </li>
-                </ul>
 
-                <button
-                  type="button"
-                  className="btn btn-primary btn-lg btn-block"
-                >
-                  Create order
-                </button>
+          {hasItemsInCart && (
+            <div className="col-md-4">
+              <div className="card mb-4">
+                <div className="card-header py-3">
+                  <h5 className="mb-0">Summary</h5>
+                </div>
+                <div className="card-body">
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                      Products
+                      <span className="">{totalQuantity}</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-center px-0">
+                      Tax
+                      <span>2$</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                      <div>
+                        <strong>Total amount</strong>
+                        <strong>
+                          <p className="mb-0">(including VAT)</p>
+                        </strong>
+                      </div>
+                      <span>
+                        <strong>{totalAmount}$</strong>
+                      </span>
+                    </li>
+                  </ul>
+
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-lg btn-block"
+                    onClick={handleCreateOrder}
+                  >
+                    Create order
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </section>
   );
 };
 
-export default Order;
+export default Cart;

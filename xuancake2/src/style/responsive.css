@@ -24,7 +24,12 @@
         padding-right: 0;
     }
 }
-
+.toast-container {
+    position: fixed;
+    bottom: 20px; /* Khoảng cách từ đáy trang */
+    right: 20px; /* Khoảng cách từ phải trang */
+    z-index: 9999; /* Đảm bảo hiển thị trên các phần tử khác */
+  }
 @media (max-width: 768px) {
 
     .slider_section .carousel-control-prev,

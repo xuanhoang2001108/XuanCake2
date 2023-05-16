@@ -1,30 +1,18 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
-
+import { ToastContainer, toast } from "react-toastify";
 function SignIn() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const auth = getAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // const sign_in_btn = document.querySelector("#sign-in-btn");
-  // const sign_up_btn = document.querySelector("#sign-up-btn");
-  // const container = document.querySelector(".login_container");
-
-  // sign_up_btn.addEventListener("click", () => {
-  //   container.classList.add("sign-up-mode");
-  // });
-
-  // sign_in_btn.addEventListener("click", () => {
-  //   container.classList.remove("sign-up-mode");
-  // });
-
   const [signUpMode, setSignUpMode] = useState(false);
 
   const swapToSignUpHandle = () => {
@@ -40,7 +28,7 @@ function SignIn() {
         // Signed in
         const user = userCredential.user;
         console.log(user);
-        alert("Registration successfully!!");
+        toast.success("Registration successful!", { autoClose: 1000 });
         // ...
       })
       .catch((error) => {
@@ -48,7 +36,7 @@ function SignIn() {
         const errorMessage = error.message;
         // ..
         console.log(errorMessage);
-        alert(error);
+        toast.error(errorMessage);
       });
   };
 
@@ -58,28 +46,39 @@ function SignIn() {
         // Signed in
         const user = userCredential.user;
         console.log(user);
-        alert(user.email + " Login successfully!");
-        navigate(
-          user.email === "admin@gmail.com" || "supplier@gmail.com"
-            ? "/Admin"
-            : "/HomePage"
-        );
+        setIsLoggedIn(true);
+        toast.success("Registration successful!", { autoClose: 1000 });
+        navigate(user.email === "admin@gmail.com" ? "/Admin" : "/HomePage");
         localStorage.setItem("email", user.email);
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
-        alert(errorMessage);
+        toast.error(errorMessage);
       });
   };
-
+  useEffect(() => {
+    const handleBackButton = (event) => {
+      if (!isLoggedIn) {
+        event.preventDefault();
+        navigate("/Login");
+      }
+    };
+  
+    window.addEventListener("popstate", handleBackButton);
+  
+    return () => {
+      window.removeEventListener("popstate", handleBackButton);
+    };
+  }, [isLoggedIn, navigate]);
   return (
     <div
       className={
-        signUpMode ?  "login_container":"login_container sign-up-mode" 
+        signUpMode ? "login_container" : "login_container sign-up-mode"
       }
     >
+      {" "}
+      
       <div className="forms-container">
         <div className="signin-signup">
           <form action="#" className="sign-in-form">
@@ -178,7 +177,6 @@ function SignIn() {
           </form>
         </div>
       </div>
-
       <div className="panels-container">
         <div className="panel left-panel">
           <div className="content">
@@ -208,7 +206,7 @@ function SignIn() {
           </div>
           <img src="images/register3.svg" className="image" alt="" />
         </div>
-      </div>
+      </div><ToastContainer />
     </div>
   );
 }
