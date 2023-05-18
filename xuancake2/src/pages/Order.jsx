@@ -9,6 +9,7 @@ import {
   MDBRow,
   MDBTypography,
 } from "mdb-react-ui-kit";
+import Form from "react-bootstrap/Form";
 import React, { useState, useEffect } from "react";
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +22,7 @@ export default function OrderDetails3() {
   const [username, setUsername] = useState(null);
   const [itemDetails, setItemDetails] = useState([]); // Define the itemDetails state
   const [hasSelectedItems, setHasSelectedItems] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(0); 
+  const [totalPrice, setTotalPrice] = useState(0);
   useEffect(() => {
     // Lấy email đã lưu từ localStorage
     const email = localStorage.getItem("email");
@@ -57,7 +58,7 @@ export default function OrderDetails3() {
   const calculateTotalPrice = (items) => {
     let totalPrice = 0;
     items.forEach((item) => {
-      totalPrice += item.price;
+      totalPrice += (item.price + item.tax) * item.quantity;
     });
     setTotalPrice(totalPrice);
   };
@@ -126,7 +127,9 @@ export default function OrderDetails3() {
                             md="2"
                             className="text-center d-flex justify-content-center align-items-center"
                           >
-                            <p className="text-muted mb-0 small">Tax: 3$ </p>
+                            <p className="text-muted mb-0 small">
+                              Tax: {item.tax}${" "}
+                            </p>
                           </MDBCol>
                         </MDBRow>
                         <hr
@@ -161,13 +164,17 @@ export default function OrderDetails3() {
 
                   <div className="d-flex pt-2">
                     <p className="text-muted mb-0">
-                      We will contact you when done!
+                      Please provide us your phone number:
+                      <Form.Control
+                        type="phone"
+                        placeholder="Your phone number"
+                      />
                     </p>
-                    <p
-                      className="text-muted mb-0"
-                      
-                    >
-                      <span className="fw-bold" style={{marginLeft:"315px"}}>Have a good day!</span>
+                    <p className="text-muted mb-0">
+                      <span className="fw-bold" style={{ marginLeft: "160px" }}>
+                        {" "}
+                        We will contact you when done!
+                      </span>
                     </p>
                   </div>
                 </MDBCardBody>
@@ -184,7 +191,7 @@ export default function OrderDetails3() {
                     className="d-flex align-items-center justify-content-between text-white text-uppercase mb-0"
                   >
                     <span className="h2 mb-0 ms-2">
-                      Total paid: {totalPrice}$(VAT)
+                      Total paid: {totalPrice.toFixed(2)}$(VAT)
                     </span>{" "}
                     <button
                       type="button"

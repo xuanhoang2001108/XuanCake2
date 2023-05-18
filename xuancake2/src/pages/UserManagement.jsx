@@ -1,41 +1,64 @@
-import React from 'react'
+import React from "react";
+import {
+  MDBBadge,
+  MDBBtn,
+  MDBTable,
+  MDBTableHead,
+  MDBTableBody,
+} from "mdb-react-ui-kit";
 
-function UserManagement() {
+export default function UserManagement() {
   return (
-    <div>
-    <strong>User Management</strong>
-    <table class="table">
-      <thead>
+    <MDBTable align="middle">
+      <MDBTableHead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Image</th>
           <th scope="col">Name</th>
-          <th scope="col">Order list</th>
-          <th scope="col">Date Start</th>
+          <th scope="col">Email</th>
+          <th scope="col">Password</th>
+          <th scope="col">Order count</th>
+          <th scope="col">Actions</th>
         </tr>
-      </thead>
-      <tbody>
+      </MDBTableHead>
+      <MDBTableBody>
         <tr>
-          <th scope="row">1</th>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>
+            {" "}
+            <strong>1</strong>
+          </td>
+          <td>
+            <div className="d-flex align-items-center">
+              <img
+                src=""
+                alt=""
+                style={{ width: "45px", height: "45px" }}
+                className="rounded-circle"
+              />
+              <div className="ms-3">
+                <p className="fw-bold mb-1 ml-1">a</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <p className="fw-normal mb-1"> a@gmail.com</p>
+          </td>
+          <td>
+            <p className="fw-normal mb-1"> 123456</p>
+          </td>
+          <td>
+            {" "}
+            <p className="fw-normal mb-1"> 4</p>
+          </td>
+          <td>
+            <button className="btn btn_primary" rounded size="sm">
+              Edit
+            </button>
+          </td>
         </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td colspan="2"> </td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  )
+      </MDBTableBody>
+      <button className="btn btn_primary" rounded size="sm">
+        Add
+      </button>
+    </MDBTable>
+  );
 }
-
-export default UserManagement

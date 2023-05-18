@@ -58,11 +58,10 @@ const Cart = () => {
     (total, item) => total + item.quantity,
     0
   );
-  const taxPerQuantity = 3; // Giá trị thuế cho mỗi quantity
 
   const totalAmount = cartItems.reduce(
     (total, item) =>
-      total + item.price * item.quantity + taxPerQuantity * item.quantity,
+      total + item.price * item.quantity + item.tax * item.quantity,
     0
   );
   const hasItemsInCart = cartItems.length > 0;
@@ -74,6 +73,8 @@ const Cart = () => {
         name: item.name,
         price: item.price,
         quantity: item.quantity,
+        tax: item.tax,
+        totalAmount: item.totalAmount,
       };
     });
     const itemNames = cartItems.map((item) => item.name);
@@ -195,7 +196,7 @@ const Cart = () => {
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center px-0">
                       Tax
-                      <span>2$</span>
+                      <span>{cartItems[0].tax.toFixed(2)}$</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                       <div>
@@ -205,7 +206,7 @@ const Cart = () => {
                         </strong>
                       </div>
                       <span>
-                        <strong>{totalAmount}$</strong>
+                        <strong>{totalAmount.toFixed(2)}$</strong>
                       </span>
                     </li>
                   </ul>

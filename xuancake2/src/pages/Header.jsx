@@ -35,6 +35,7 @@ function Header() {
         signOut(auth)
           .then(() => {
             localStorage.removeItem("email");
+            localStorage.removeItem("updatedCartItems");
             navigate("/");
           })
           .catch((error) => {
