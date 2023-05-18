@@ -71,6 +71,7 @@ const Cake = () => {
                       <h5 className="name">{item.name}</h5>
                       <div className="type">{item.type}</div>
                       <div className="price">{item.price}$</div>
+                     
                       <hr />
                       <a className="my-link" onClick={() => addToCart(item)}>
                         Add to cart{" "}
