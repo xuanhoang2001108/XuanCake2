@@ -13,6 +13,9 @@ import Form from "react-bootstrap/Form";
 import React, { useState, useEffect } from "react";
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function OrderDetails3() {
   const auth = getAuth();
@@ -23,10 +26,22 @@ export default function OrderDetails3() {
   const [itemDetails, setItemDetails] = useState([]); // Define the itemDetails state
   const [hasSelectedItems, setHasSelectedItems] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [totalTax, setTotalTax] = useState(0); // Add totalTax state
+  const [totalQuantity, setTotalQuantity] = useState(0); // Add totalQuantity state
+
+  const formData = {
+    email: email,
+    totalQuantity: totalQuantity,
+    totalPrice: totalPrice,
+    phoneNumber: phoneNumber,
+    totalTax: totalTax,
+  };
+
   useEffect(() => {
     // Lấy email đã lưu từ localStorage
     const email = localStorage.getItem("email");
-    console.log("email from local storage:", email);
+
     setEmail(email);
     if (email) {
       const username = email.split("@")[0];
@@ -56,12 +71,42 @@ export default function OrderDetails3() {
     navigate("/Cake"); // Chuyển hướng đến trang cake
   };
   const calculateTotalPrice = (items) => {
+    let totalQuantity = 0;
     let totalPrice = 0;
+    let totalTax = 0;
     items.forEach((item) => {
       totalPrice += (item.price + item.tax) * item.quantity;
+      totalTax += item.tax * item.quantity;
+      totalQuantity += item.quantity;
     });
+
     setTotalPrice(totalPrice);
+    setTotalTax(totalTax);
+    setTotalQuantity(totalQuantity);
   };
+  const handleAdd = async () => {
+    if (!phoneNumber) {
+      toast.error("Please enter your phone number");
+      return;
+    }
+  
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/order/postOrder",
+        formData
+      );
+  
+      if (res.status >= 200 && res.status < 300) {
+        toast.success("Order added successfully");
+      } else {
+        toast.error("Failed to create order");
+      }
+    } catch (error) {
+      console.log("Error:", error);
+      toast.error(error.message);
+    }
+  };
+  
   return (
     <>
       <section className="h-100" style={{ backgroundColor: "#eee" }}>
@@ -168,11 +213,12 @@ export default function OrderDetails3() {
                       <Form.Control
                         type="phone"
                         placeholder="Your phone number"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
                       />
                     </p>
                     <p className="text-muted mb-0">
                       <span className="fw-bold" style={{ marginLeft: "160px" }}>
-                        {" "}
                         We will contact you when done!
                       </span>
                     </p>
@@ -192,10 +238,11 @@ export default function OrderDetails3() {
                   >
                     <span className="h2 mb-0 ms-2">
                       Total paid: {totalPrice.toFixed(2)}$(VAT)
-                    </span>{" "}
+                    </span>
                     <button
                       type="button"
                       className="btn  btn-outline-light btn-sl "
+                      onClick={handleAdd}
                     >
                       Confirm order
                     </button>
@@ -205,6 +252,7 @@ export default function OrderDetails3() {
             </MDBCol>
           </MDBRow>
         </MDBContainer>
+        <ToastContainer />
       </section>
     </>
   );

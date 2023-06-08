@@ -2,8 +2,15 @@ import { React, useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Slider from "react-slick";
 const Cake = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 8,
+    slidesToScroll: 8,
+  };
   const [storeData, setStoreData] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const addToCart = (item) => {
@@ -38,7 +45,7 @@ const Cake = () => {
     try {
       console.log();
 
-      const res = await axios.get(`http://localhost:5000/cake/getAll`);
+      const res = await axios.get(`http://localhost:5000/cake/getAllCake`);
       if (res.status === 200) {
         setStoreData(res.data);
       }
@@ -71,10 +78,9 @@ const Cake = () => {
                       <h5 className="name">{item.name}</h5>
                       <div className="type">{item.type}</div>
                       <div className="price">{item.price}$</div>
-                     
                       <hr />
                       <a className="my-link" onClick={() => addToCart(item)}>
-                        Add to cart{" "}
+                        Add to cart
                       </a>
                     </div>
                   </div>
@@ -87,6 +93,29 @@ const Cake = () => {
           <div className="heading_container">
             <hr />
             <h2>Salty cakes</h2>
+          </div>
+        </div>
+        <div className="container-fluid">
+          <div className="cake_container">
+            {storeData.map((item, index) => {
+              if (item.type === "Salty") {
+                return (
+                  <div className="box" key={item._id}>
+                    <img src={item.image} alt="" />
+                    <div className="link_box">
+                      <h5 className="name">{item.name}</h5>
+                      <div className="type">{item.type}</div>
+                      <div className="price">{item.price}$</div>
+
+                      <hr />
+                      <a className="my-link" onClick={() => addToCart(item)}>
+                        Add to cart{" "}
+                      </a>
+                    </div>
+                  </div>
+                );
+              }
+            })}
           </div>
         </div>
         {/* <div className="container-fluid">
@@ -150,7 +179,6 @@ const Cake = () => {
           </div>
         </div> */}
       </section>
-     
     </div>
   );
 };
