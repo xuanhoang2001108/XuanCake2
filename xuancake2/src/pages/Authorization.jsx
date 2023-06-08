@@ -48,7 +48,7 @@ function SignIn() {
         console.log(user);
         setIsLoggedIn(true);
         toast.success("Registration successful!", { autoClose: 1000 });
-        navigate(user.email === "admin@gmail.com" ? "/Admin" : "/HomePage");
+        navigate(user.email === "admin@gmail.com" ? "/CakeManagement" : "/HomePage");
         localStorage.setItem("email", user.email);
       })
       .catch((error) => {

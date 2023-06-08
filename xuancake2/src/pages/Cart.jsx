@@ -58,7 +58,10 @@ const Cart = () => {
     (total, item) => total + item.quantity,
     0
   );
-
+  const totalTax = cartItems.reduce(
+    (total, item) => total + item.tax * item.quantity,
+    0
+  );
   const totalAmount = cartItems.reduce(
     (total, item) =>
       total + item.price * item.quantity + item.tax * item.quantity,
@@ -141,7 +144,7 @@ const Cart = () => {
                                 style={{ marginRight: "10px" }}
                               >
                                 <i className="fas fa-arrow-left " />
-                              </div>{" "}
+                              </div>
                               <label className="item_qty">
                                 {item.quantity}
                               </label>
@@ -153,7 +156,7 @@ const Cart = () => {
                                 <i className="fas fa-arrow-right " />
                               </div>
                             </div>
-                          </label>{" "}
+                          </label>
                           <div className="ml-auto mr-5">
                             <button
                               type="button"
@@ -196,7 +199,7 @@ const Cart = () => {
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center px-0">
                       Tax
-                      <span>{cartItems[0].tax.toFixed(2)}$</span>
+                      <span>{totalTax.toFixed(2)}$</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                       <div>
