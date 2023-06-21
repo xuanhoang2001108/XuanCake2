@@ -61,7 +61,6 @@ export default function CakeManagement() {
     });
     setBasicModal(true);
   };
-  
 
   const deleteCake = async (cakeId) => {
     try {
@@ -94,66 +93,59 @@ export default function CakeManagement() {
   }, []);
 
   const handleInputChange = (event) => {
-  const { name, value } = event.target;
+    const { name, value } = event.target;
 
-  setFormData((prevFormData) => ({
-    ...prevFormData,
-    [name]: value,
-  }));
-
-  if (name === "type") {
-    setSelectedCakeType(value);
-  }
-
-  if (selectedCake) {
-    setSelectedCake((prevSelectedCake) => ({
-      ...prevSelectedCake,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value,
     }));
-  }
-};
 
-  
+    if (name === "type") {
+      setSelectedCakeType(value);
+    }
+
+    if (selectedCake) {
+      setSelectedCake((prevSelectedCake) => ({
+        ...prevSelectedCake,
+        [name]: value,
+      }));
+    }
+  };
+
   const handleAdd = async () => {
     const { image, name, type, tax, price } = formData;
-  
+
     // Check if any required field is missing
     if (!image || !name || !type || !tax || !price) {
       toast.error("Please enter all the required fields");
       return;
     }
-  
+
     try {
-      if (selectedCake) {
-        const res = await axios.put(
-          `http://localhost:5000/cake/updateCake/${selectedCake._id}`,
-          formData
-        );
-        if (res.status === 200) {
-          toast.success("Cake updated successfully");
-          toggleShow();
-          getAllCakeData();
-        } else {
-          toast.error("Failed to update cake");
-        }
+      const res = selectedCake
+        ? await axios.put(
+            `http://localhost:5000/cake/updateCake/${selectedCake._id}`,
+            formData
+          )
+        : await axios.post("http://localhost:5000/cake/postCake", formData);
+
+      if (res.status >= 200 && res.status < 300) {
+        const message = selectedCake
+          ? "Cake updated successfully"
+          : "Cake added successfully";
+        toast.success(message);
+        toggleShow();
+        getAllCakeData();
       } else {
-        const res = await axios.post(
-          "http://localhost:5000/cake/postCake",
-          formData
-        );
-        if (res.status >= 200 && res.status < 300) {
-          toast.success("Cake added successfully");
-          toggleShow();
-          getAllCakeData();
-        } else {
-          toast.error("Failed to add cake");
-        }
+        const errorMessage = selectedCake
+          ? "Failed to update cake"
+          : "Failed to add cake";
+        toast.error(errorMessage);
       }
     } catch (error) {
       toast.error(error.message);
     }
   };
-  
 
   return (
     <>
@@ -263,8 +255,9 @@ export default function CakeManagement() {
                 name="name"
                 onChange={handleInputChange}
               />
+
               <Form.Select
-                className="mb-2"
+                className="mb-2 "
                 name="type"
                 value={selectedCake ? selectedCake.type : formData.type}
                 onChange={handleInputChange}
@@ -273,6 +266,7 @@ export default function CakeManagement() {
                 <option value="Sweet">Sweet</option>
                 <option value="Salty">Salty</option>
               </Form.Select>
+
               <Form.Control
                 className="mb-2"
                 value={selectedCake ? selectedCake.tax : formData.tax}
@@ -282,7 +276,7 @@ export default function CakeManagement() {
               />
               <Form.Control
                 className="mb-2"
-                 value={selectedCake ? selectedCake.price : formData.price}
+                value={selectedCake ? selectedCake.price : formData.price}
                 placeholder="Price"
                 name="price"
                 onChange={handleInputChange}
@@ -294,7 +288,7 @@ export default function CakeManagement() {
                 Close
               </div>
               <div className="btn btn-primary btn-sm" onClick={handleAdd}>
-              {selectedCake ? "Save" : "Add"}
+                {selectedCake ? "Save" : "Add"}
               </div>
             </MDBModalFooter>
           </MDBModalContent>
