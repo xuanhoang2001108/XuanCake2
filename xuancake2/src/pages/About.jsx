@@ -13,7 +13,7 @@ const itemStaff = [
       onDragStart={handleDragStart}
       role="presentation"
     />
-    <span class="d-inline-flex mt-4">Hanry Bulter</span>
+    <span className="d-inline-flex mt-4">Hanry Bulter</span>
   </div>,
   <div style={{ textAlign: "center", fontSize: "20px" }}>
     <div className="mb-2">Decorator</div>
@@ -22,7 +22,7 @@ const itemStaff = [
       onDragStart={handleDragStart}
       role="presentation"
     />
-    <span class="d-inline-flex mt-4">Mary May</span>
+    <span className="d-inline-flex mt-4">Mary May</span>
   </div>,
   <div style={{ textAlign: "center", fontSize: "20px" }}>
     <div className="mb-2">Decorator</div>
@@ -31,7 +31,7 @@ const itemStaff = [
       onDragStart={handleDragStart}
       role="presentation"
     />
-    <span class="d-inline-flex mt-4">Jone Mark</span>
+    <span className="d-inline-flex mt-4">Jone Mark</span>
   </div>,
   <div style={{ textAlign: "center", fontSize: "20px" }}>
     <div className="mb-2">Decorator</div>
@@ -40,7 +40,7 @@ const itemStaff = [
       onDragStart={handleDragStart}
       role="presentation"
     />
-    <span class="d-inline-flex mt-4">Jame Hardy</span>
+    <span className="d-inline-flex mt-4">Jame Hardy</span>
   </div>,
 ];
 
@@ -114,7 +114,7 @@ const About = () => {
       </section>
       <section className="slider_section layout_padding-bottom">
         <div className="container ">
-          <div class="heading_container">
+          <div className="heading_container">
             <h2>Our Customers Say</h2>
             <hr />
           </div>

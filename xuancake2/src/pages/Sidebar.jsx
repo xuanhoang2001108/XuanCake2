@@ -5,7 +5,7 @@ import {
   signOut,
 } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
 import { Link, NavLink } from "react-router-dom";
-import "../pages/Sidebar.css";
+import "../style/Sidebar.css";
 const Sidebar = () => {
   const auth = getAuth();
   const navigate = useNavigate();
