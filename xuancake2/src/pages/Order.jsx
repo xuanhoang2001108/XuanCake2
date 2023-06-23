@@ -89,13 +89,13 @@ export default function OrderDetails3() {
       toast.error("Please enter your phone number");
       return;
     }
-  
+
     try {
       const res = await axios.post(
         "http://localhost:5000/order/postOrder",
         formData
       );
-  
+
       if (res.status >= 200 && res.status < 300) {
         toast.success("Order added successfully");
       } else {
@@ -106,7 +106,7 @@ export default function OrderDetails3() {
       toast.error(error.message);
     }
   };
-  
+
   return (
     <>
       <section className="h-100" style={{ backgroundColor: "#eee" }}>
@@ -116,7 +116,7 @@ export default function OrderDetails3() {
               <MDBCard style={{ borderRadius: "10px" }}>
                 <MDBCardHeader className="px-4 py-5">
                   <MDBTypography tag="h5" className="text-muted mb-0">
-                    Thanks for your Order,{" "}
+                    Thanks for your Order,
                     <span style={{ color: "#a8729a" }}>{username}</span>!
                   </MDBTypography>
                 </MDBCardHeader>
@@ -148,7 +148,6 @@ export default function OrderDetails3() {
                             className="text-center d-flex justify-content-center align-items-center"
                           >
                             <p className="text-muted mb-0 small">
-                              {" "}
                               Quantity: {item.quantity}
                             </p>
                           </MDBCol>
@@ -173,7 +172,7 @@ export default function OrderDetails3() {
                             className="text-center d-flex justify-content-center align-items-center"
                           >
                             <p className="text-muted mb-0 small">
-                              Tax: {item.tax}${" "}
+                              Tax: {item.tax}$
                             </p>
                           </MDBCol>
                         </MDBRow>

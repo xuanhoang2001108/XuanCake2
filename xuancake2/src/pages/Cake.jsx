@@ -2,17 +2,11 @@ import { React, useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Slider from "react-slick";
+import { Link, useParams } from "react-router-dom";
 const Cake = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 8,
-    slidesToScroll: 8,
-  };
   const [storeData, setStoreData] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const { productId } = useParams();
   const addToCart = (item) => {
     let cartItems = localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems"))
@@ -79,6 +73,12 @@ const Cake = () => {
                       <div className="type">{item.type}</div>
                       <div className="price">{item.price}$</div>
                       <hr />
+                      <p>
+                        <Link to={`/CakeDetail/${item._id}`}>
+                          See Details 
+                          <i className="fa-solid fa-arrow-right ml-1"></i>
+                        </Link>
+                      </p>
                       <a className="my-link" onClick={() => addToCart(item)}>
                         Add to cart
                       </a>
@@ -109,7 +109,7 @@ const Cake = () => {
 
                       <hr />
                       <a className="my-link" onClick={() => addToCart(item)}>
-                        Add to cart{" "}
+                        Add to cart
                       </a>
                     </div>
                   </div>
@@ -118,66 +118,6 @@ const Cake = () => {
             })}
           </div>
         </div>
-        {/* <div className="container-fluid">
-          <div className="cake_container">
-            <div className="box">
-              <img src="images/product-1.jpg" alt="" />
-              <div className="link_box">
-                <h5>Dozen cupcake</h5>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src="images/product-2.jpg" alt="" />
-              <div className="link_box">
-                <h5>Cookie and cream</h5>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src="images/product-3.jpg" alt="" />
-              <div className="link_box">
-                <h5>Gluten free mini dozen</h5>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src="images/product-4.jpg" alt="" />
-              <div className="link_box">
-                <h5>Cookie dough</h5>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src="images/product-5.jpg" alt="" />
-              <div className="link_box">
-                <h5>Vanilla salted caramel</h5>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src="images/product-6.jpg  " alt="" />
-              <div className="link_box">
-                <h5>German chocolate</h5>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src="images/product-7.jpg  " alt="" />
-              <div className="link_box">
-                <h5>German chocolate</h5>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src="images/product-8.jpg  " alt="" />
-              <div className="link_box">
-                <h5>German chocolate</h5>
-                <a href="/Cart">Add to cart</a>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </section>
     </div>
   );

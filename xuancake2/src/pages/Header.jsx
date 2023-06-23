@@ -49,12 +49,10 @@ function Header() {
     <>
       <ToastContainer />
       <div>
-        {" "}
         <div className="hero_area">
           <div className="brand_box">
             <Link className="navbar-brand" href="/home">
               <span>
-                {" "}
                 Xuan
                 <img src="images/logo.png" alt="" />
               </span>

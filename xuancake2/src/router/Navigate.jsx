@@ -7,7 +7,7 @@ import Cart from "../pages/Cart";
 import About from "../pages/About";
 import Cake from "../pages/Cake";
 import Authorization from "../pages/Authorization";
-
+import CakeDetail from "../pages/CakeDetail";
 import AdminLayout from "../pages/AdminLayout";
 import StaffManagement from "../pages/StaffManagement";
 import UserManagement from "../pages/UserManagement";
@@ -24,6 +24,7 @@ const Navigate = () => {
         <Route path="/About" element={<About />}></Route>
         <Route path="/Order" element={<Order />}></Route>
         <Route path="/Cart" element={<Cart />}></Route>
+        <Route path="/CakeDetail/:productId" element={<CakeDetail/>} />  
         <Route path="/OrderHistory" element={<OrderHistory />}></Route>
       </Route>
       <Route element={<AdminLayout renderHeaderAndFooter={false} />}>

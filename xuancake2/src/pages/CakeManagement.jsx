@@ -27,6 +27,8 @@ export default function CakeManagement() {
     type: "",
     tax: "",
     price: "",
+    comment: "",
+    description: "",
   });
 
   const toggleShow = () => {
@@ -39,6 +41,7 @@ export default function CakeManagement() {
         type: selectedCake.type,
         tax: selectedCake.tax,
         price: selectedCake.price,
+        description: selectedCake.description,
       });
     } else {
       setFormData({
@@ -47,6 +50,7 @@ export default function CakeManagement() {
         type: "",
         tax: "",
         price: "",
+        description: "",
       });
     }
   };
@@ -58,6 +62,7 @@ export default function CakeManagement() {
       type: cake.type,
       tax: cake.tax,
       price: cake.price,
+      description: cake.description,
     });
     setBasicModal(true);
   };
@@ -113,10 +118,10 @@ export default function CakeManagement() {
   };
 
   const handleAdd = async () => {
-    const { image, name, type, tax, price } = formData;
+    const { image, name, type, tax, price, description } = formData;
 
     // Check if any required field is missing
-    if (!image || !name || !type || !tax || !price) {
+    if (!image || !name || !type || !tax || !price || !description) {
       toast.error("Please enter all the required fields");
       return;
     }
@@ -279,6 +284,15 @@ export default function CakeManagement() {
                 value={selectedCake ? selectedCake.price : formData.price}
                 placeholder="Price"
                 name="price"
+                onChange={handleInputChange}
+              />
+              <Form.Control
+                className="mb-2"
+                value={
+                  selectedCake ? selectedCake.description : formData.description
+                }
+                placeholder="Description"
+                name="description"
                 onChange={handleInputChange}
               />
             </MDBModalBody>
