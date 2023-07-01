@@ -41,6 +41,7 @@ function SignIn() {
   };
 
   const handleLogin = () => {
+    
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -48,7 +49,7 @@ function SignIn() {
         console.log(user);
         setIsLoggedIn(true);
         toast.success("Registration successful!", { autoClose: 1000 });
-        navigate(user.email === "admin@gmail.com" ? "/CakeManagement" : "/HomePage");
+        navigate(user.email === "admin@gmail.com" ? "/CakeManagement" : "/");
         localStorage.setItem("email", user.email);
       })
       .catch((error) => {

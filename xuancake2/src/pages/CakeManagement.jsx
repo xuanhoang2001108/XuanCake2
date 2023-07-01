@@ -128,7 +128,7 @@ export default function CakeManagement() {
 
     try {
       const res = selectedCake
-        ? await axios.put(
+        ? await axios.patch(
             `http://localhost:5000/cake/updateCake/${selectedCake._id}`,
             formData
           )
