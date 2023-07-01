@@ -11,7 +11,7 @@ function CakeDetail() {
   const [commentInput, setCommentInput] = useState("");
   const [cakeData, setCakeData] = useState(null);
   const { productId } = useParams();
-
+  const [cartItems, setCartItems] = useState([]);
   useEffect(() => {
     const getCakeData = async () => {
       try {
@@ -81,7 +81,28 @@ function CakeDetail() {
     }
     return null;
   };
+  const handleAddToCart = (item) => {
+    let cartItems = localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems"))
+      : [];
 
+    const updatedCartItems = [...cartItems];
+
+    const existingItemIndex = updatedCartItems.findIndex(
+      (cartItem) => cartItem._id === item._id
+    );
+
+    if (existingItemIndex !== -1) {
+      updatedCartItems[existingItemIndex].quantity++;
+    } else {
+      updatedCartItems.push({ ...item, quantity: 1 });
+    }
+
+    setCartItems(updatedCartItems);
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    console.log(updatedCartItems);
+    toast.success("Add successfully!");
+  };
   return (
     <div>
       <div className="container mt-5 mb-5">
@@ -125,8 +146,8 @@ function CakeDetail() {
                     <div className="cart mt-4 align-items-center">
                       <button
                         type="button"
-                        className="btn  btn-outline-dark btn-sl"
-                      >
+                        className="btn  btn-outline-dark btn-sl" onClick={() => handleAddToCart(cakeData)}
+                      > 
                         Add to cart
                       </button>
                     </div>

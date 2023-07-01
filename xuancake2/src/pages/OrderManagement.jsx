@@ -62,10 +62,11 @@ export default function OrderManagement() {
     }
   };
   const handleSave = async (orderId) => {
-    try {  console.log("Edit Form Data:", editFormData);
-    const res = await axios.patch(
-      `http://localhost:5000/order/updateOrder/${editFormData._id}`,
-      editFormData
+    try {
+      console.log("Edit Form Data:", editFormData);
+      const res = await axios.patch(
+        `http://localhost:5000/order/updateOrder/${editFormData._id}`,
+        editFormData
       );
       if (res.status === 200) {
         toast.success("Order updated successfully");
@@ -78,7 +79,7 @@ export default function OrderManagement() {
       toast.error(error.message);
     }
   };
-  
+
   const getAllOrderData = async () => {
     try {
       const res = await axios.get(`http://localhost:5000/order/getAllOrder`);
@@ -99,7 +100,7 @@ export default function OrderManagement() {
       phone: order.phoneNumber,
       totalQuantity: order.totalQuantity,
       totalPrice: order.totalPrice,
-      status: "Pending",
+      status: order.status,
     });
     setBasicModal(true);
   };
@@ -158,7 +159,7 @@ export default function OrderManagement() {
               </td>
               <td className="text-center">
                 <p className="fw-bold mb-1 ml-1">
-                  {" "}
+               
                   {`${item._id.substring(0, 10)}...`}
                 </p>
               </td>
@@ -173,7 +174,10 @@ export default function OrderManagement() {
               </td>
 
               <td className="text-center">
-                <p className="fw-bold mb-1 ml-1"> {item.totalPrice}$</p>
+                <p className="fw-bold mb-1 ml-1">
+                  {" "}
+                  {item.totalPrice.toFixed(2)}$
+                </p>
               </td>
               <td className="text-center">
                 <p
@@ -269,7 +273,8 @@ export default function OrderManagement() {
                 onChange={(e) =>
                   setEditFormData({ ...editFormData, status: e.target.value })
                 }
-              > <option value="Waiting">Pending</option>
+              >
+                <option value="Pending">Pending</option>
                 <option value="Waiting">Waiting</option>
                 <option value="Done">Done</option>
                 <option value="Reject">Reject</option>
@@ -280,7 +285,9 @@ export default function OrderManagement() {
               <div className="btn btn-primary btn-sm" onClick={toggleShow}>
                 Close
               </div>
-              <div className="btn btn-primary btn-sm" onClick={handleSave}>Save</div>
+              <div className="btn btn-primary btn-sm" onClick={handleSave}>
+                Save
+              </div>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>

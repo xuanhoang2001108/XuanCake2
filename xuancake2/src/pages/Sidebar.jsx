@@ -43,8 +43,8 @@ const Sidebar = () => {
     
     },
     {
-      path: "/StaffManagement",
-      name: "Staff Management",
+      path: "/StatisticManagement",
+      name: "Statistic Management",
       
     },
     {

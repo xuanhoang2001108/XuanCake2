@@ -110,78 +110,84 @@ const Cart = () => {
                   </div>
                 )}
               </div>
-
-              {cartItems.map((item) => (
-                <div className="card-body mb-0" key={item._id}>
-                  <div className="row">
-                    <div className="col-lg-4 col-md-12 mb-2 mb-lg-0">
-                      <div
-                        className="bg-image hover-overlay hover-zoom ripple rounded"
-                        data-mdb-ripple-color="light"
-                      >
-                        <img src={item.image} className="w-100 " alt="" />
+              {cartItems.length === 0 ? (
+                <div className="card-body text-center">
+                  <p className="mb-0">You have no items in your cart.</p>
+                  <Link to="/Cake" className="btn btn-primary mt-3">
+                    Continue Shopping
+                  </Link>
+                </div>
+              ) : (
+                cartItems.map((item) => (
+                  <div className="card-body mb-0" key={item._id}>
+                    <div className="row">
+                      <div className="col-lg-4 col-md-12 mb-2 mb-lg-0">
+                        <div
+                          className="bg-image hover-overlay hover-zoom ripple rounded"
+                          data-mdb-ripple-color="light"
+                        >
+                          <img src={item.image} className="w-100 " alt="" />
+                        </div>
                       </div>
-                    </div>
-                    <div
-                      className="container d-flex item_info"
-                      style={{ flex: 1 }}
-                    >
-                      <div className="flex-grow-1 ">
-                        <strong className="row item_name">{item.name}</strong>
-                        <label className="row item_price">
-                          Price: {item.price}$
-                        </label>
-                        <label className="row item_type">
-                          Type: {item.type}
-                        </label>
-                        <div className="row ml-0">
-                          <label className="row item_qty">
-                            Quantity:
-                            <div className="d-flex align-items-center ml-2 ">
-                              <div
-                                type="button"
-                                onClick={() => handleDecreaseQuantity(item._id)}
-                                style={{ marginRight: "10px" }}
-                              >
-                                <i className="fas fa-arrow-left " />
-                              </div>
-                              <label className="item_qty">
-                                {item.quantity}
-                              </label>
-                              <div
-                                type="button"
-                                onClick={() => handleIncreaseQuantity(item._id)}
-                                style={{ marginLeft: "10px" }}
-                              >
-                                <i className="fas fa-arrow-right " />
-                              </div>
-                            </div>
+                      <div
+                        className="container d-flex item_info"
+                        style={{ flex: 1 }}
+                      >
+                        <div className="flex-grow-1 ">
+                          <strong className="row item_name">{item.name}</strong>
+                          <label className="row item_price">
+                            Price: {item.price}$
                           </label>
-                          <div className="ml-auto mr-5">
-                            <button
-                              type="button"
-                              className="btn btn-primary btn-sm"
-                              data-mdb-toggle="tooltip"
-                              title="Remove item"
-                              style={{ marginRight: "5%" }}
-                              onClick={() => handleRemoveItem(item._id)}
-                            >
-                              <i className="fas fa-trash"></i>
-                            </button>
+                          <label className="row item_type">
+                            Type: {item.type}
+                          </label>
+                          <div className="row ml-0">
+                            <label className="row item_qty">
+                              Quantity:
+                              <div className="d-flex align-items-center ml-2 ">
+                                <div
+                                  type="button"
+                                  onClick={() =>
+                                    handleDecreaseQuantity(item._id)
+                                  }
+                                  style={{ marginRight: "10px" }}
+                                >
+                                  <i className="fas fa-arrow-left " />
+                                </div>
+                                <label className="item_qty">
+                                  {item.quantity}
+                                </label>
+                                <div
+                                  type="button"
+                                  onClick={() =>
+                                    handleIncreaseQuantity(item._id)
+                                  }
+                                  style={{ marginLeft: "10px" }}
+                                >
+                                  <i className="fas fa-arrow-right " />
+                                </div>
+                              </div>
+                            </label>
+                            <div className="ml-auto mr-5">
+                              <button
+                                type="button"
+                                className="btn btn-primary btn-sm"
+                                data-mdb-toggle="tooltip"
+                                title="Remove item"
+                                style={{ marginRight: "5%" }}
+                                onClick={() => handleRemoveItem(item._id)}
+                              >
+                                <i className="fas fa-trash"></i>
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                    <hr className="my-3" />
                   </div>
-                  <hr className="my-3" />
-                </div>
-              ))}
-
-              <div className="container">
-                <Link to="/Cake">
-                  <i className="fas fa-arrow-left "> </i> Go back to shop
-                </Link>
-              </div>
+                ))
+              )}
             </div>
           </div>
 
