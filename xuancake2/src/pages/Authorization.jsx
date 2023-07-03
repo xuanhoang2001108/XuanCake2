@@ -4,6 +4,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
 import { ToastContainer, toast } from "react-toastify";
 function SignIn() {
@@ -14,12 +15,25 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [signUpMode, setSignUpMode] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [showResetPassword, setShowResetPassword] = useState(false);
 
   const swapToSignUpHandle = () => {
     setSignUpMode(true);
   };
   const swapToSignInHandle = () => {
     setSignUpMode(false);
+  };
+  const handleResetPassword = () => {
+    sendPasswordResetEmail(auth, resetEmail)
+      .then(() => {
+        toast.success("Password reset email sent!", { autoClose: 1000 });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        toast.error(errorMessage);
+      });
   };
 
   const handleRegister = () => {
@@ -41,7 +55,6 @@ function SignIn() {
   };
 
   const handleLogin = () => {
-    
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -51,6 +64,9 @@ function SignIn() {
         toast.success("Registration successful!", { autoClose: 1000 });
         navigate(user.email === "admin@gmail.com" ? "/CakeManagement" : "/");
         localStorage.setItem("email", user.email);
+        localStorage.removeItem("updatedCartItems");
+        localStorage.removeItem("itemDetails"); // Remove the order details from localStorage
+        localStorage.setItem("hasSelectedItems", "false");
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -65,9 +81,9 @@ function SignIn() {
         navigate("/Login");
       }
     };
-  
+
     window.addEventListener("popstate", handleBackButton);
-  
+
     return () => {
       window.removeEventListener("popstate", handleBackButton);
     };
@@ -78,8 +94,6 @@ function SignIn() {
         signUpMode ? "login_container" : "login_container sign-up-mode"
       }
     >
-      {" "}
-      
       <div className="forms-container">
         <div className="signin-signup">
           <form action="#" className="sign-in-form">
@@ -112,22 +126,34 @@ function SignIn() {
               name="login"
               onClick={handleLogin}
             />
-
-            <p className="social-text">Or Sign in with social platforms</p>
-            <div className="social-media">
-              <a href="#" className="social-icon">
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" className="social-icon">
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a href="#" className="social-icon">
-                <i className="fab fa-google"></i>
-              </a>
-              <a href="#" className="social-icon">
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-            </div>
+            <p
+              className="social-text"
+              onClick={() => setShowResetPassword(true)}
+            >
+              Forgot your password?
+            </p>
+            {showResetPassword && (
+              <>
+                <div className="input-field">
+                  <i className="fas fa-envelope"></i>
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    id="reset_email"
+                    name="reset_email"
+                    onChange={(e) => setResetEmail(e.target.value)}
+                  />
+                </div>
+                <input
+                  type="button"
+                  className="login-btn"
+                  value="Reset Password"
+                  id="reset_password"
+                  name="reset_password"
+                  onClick={handleResetPassword}
+                />
+              </>
+            )}
           </form>
           <form action="#" className="sign-up-form">
             <h2 className="title">Sign up</h2>
@@ -160,21 +186,6 @@ function SignIn() {
               name="register"
               onClick={handleRegister}
             />
-            <p className="social-text">Or Sign up with social platforms</p>
-            <div className="social-media">
-              <a href="#" className="social-icon">
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" className="social-icon">
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a href="#" className="social-icon">
-                <i className="fab fa-google"></i>
-              </a>
-              <a href="#" className="social-icon">
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-            </div>
           </form>
         </div>
       </div>
@@ -207,7 +218,8 @@ function SignIn() {
           </div>
           <img src="images/register3.svg" className="image" alt="" />
         </div>
-      </div><ToastContainer />
+      </div>
+      <ToastContainer />
     </div>
   );
 }

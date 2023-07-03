@@ -4446,6 +4446,10 @@ input[type="button"].btn-block {
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
+.edit-form-container {
+  max-height: calc(100vh - 200px); /* Adjust the value if needed */
+  overflow-y: auto;
+}
 
 .navbar-brand {
   display: inline-block;

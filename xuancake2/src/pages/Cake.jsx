@@ -97,7 +97,7 @@ const Cake = () => {
         </div>
         <div className="container-fluid">
           <div className="cake_container">
-            {storeData.map((item, index) => {
+          {storeData.map((item, index) => {
               if (item.type === "Salty") {
                 return (
                   <div className="box" key={item._id}>
@@ -106,8 +106,13 @@ const Cake = () => {
                       <h5 className="name">{item.name}</h5>
                       <div className="type">{item.type}</div>
                       <div className="price">{item.price}$</div>
-
                       <hr />
+                      <p>
+                        <Link to={`/CakeDetail/${item._id}`}>
+                          See Details 
+                          <i className="fa-solid fa-arrow-right ml-1"></i>
+                        </Link>
+                      </p>
                       <a className="my-link" onClick={() => addToCart(item)}>
                         Add to cart
                       </a>

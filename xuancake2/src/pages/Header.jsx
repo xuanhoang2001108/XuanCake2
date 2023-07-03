@@ -81,7 +81,7 @@ function Header() {
             <Link className="navbar-brand" href="/">
               <span>
                 Xuan
-                <img src="images/logo.png"  />
+                <img src="images/logo.png" />
               </span>
             </Link>
           </div>
@@ -149,20 +149,20 @@ function Header() {
                           title={email ? username : "Login"}
                           style={{ marginBottom: "5px" }}
                         >
+                          <DropdownItem
+                            className="cart"
+                            onClick={handleNavCart}
+                          >
+                            <i className="fas fa-shopping-cart"> Cart</i>
+                          </DropdownItem>
+                          <DropdownItem
+                            className="userLoggedIn"
+                            onClick={handleNavOrder}
+                          >
+                            Order History
+                          </DropdownItem>
                           {email ? (
                             <>
-                              <DropdownItem
-                                className="cart"
-                                onClick={handleNavCart}
-                              >
-                                <i className="fas fa-shopping-cart"> Cart</i>
-                              </DropdownItem>
-                              <DropdownItem
-                                className="userLoggedIn"
-                                onClick={handleNavOrder}
-                              >
-                                Order History
-                              </DropdownItem>
                               <DropdownItem
                                 className="logoutButton"
                                 onClick={handleLogout}
