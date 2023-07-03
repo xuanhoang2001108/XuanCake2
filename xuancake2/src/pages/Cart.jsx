@@ -133,8 +133,8 @@ const Cart = () => {
                         className="container d-flex item_info"
                         style={{ flex: 1 }}
                       >
-                        <div className="flex-grow-1 ">
-                          <strong className="row item_name">{item.name}</strong>
+                        <div className="flex-grow-1 mt-5 ml-2 ">
+                          <strong className="row item_name eee">{item.name}</strong>
                           <label className="row item_price">
                             Price: {item.price}$
                           </label>

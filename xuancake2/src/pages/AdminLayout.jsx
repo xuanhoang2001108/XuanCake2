@@ -1,18 +1,20 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import SideBar from "../pages/Sidebar"
+import SideBar from "../pages/Sidebar";
 
 const AdminLayout = () => {
-    return (
-        <div className='d-flex'>
-            <SideBar/>
-            <div className="main flex-grow-1 p-5">
-                <Outlet />
-            </div>
+  return (
+    <div className="admin-layout">
+      <div className="sidebar">
+        <SideBar />
+      </div>
+      <div className="content">
+        <div className="content-scroll">
+          <Outlet />
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-
-export default AdminLayout
-
+export default AdminLayout;

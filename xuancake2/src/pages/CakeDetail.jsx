@@ -70,7 +70,6 @@ function CakeDetail() {
       toast.error("Failed to submit comment.");
     }
   };
-
   const getCurrentUserEmail = () => {
     const email = localStorage.getItem("email");
     if (email) {

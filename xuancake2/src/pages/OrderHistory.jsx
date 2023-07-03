@@ -17,6 +17,8 @@ export default function OrderHistory() {
         return "text-danger";
       default:
         return "";
+      case "Pending":
+        return "text-primary";
     }
   };
 
@@ -27,7 +29,9 @@ export default function OrderHistory() {
   );
   const getSpecificOrder = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/order/getSpecificOrder/${loggedInEmail}`);
+      const res = await axios.get(
+        `http://localhost:5000/order/getSpecificOrder/${loggedInEmail}`
+      );
       if (res.status === 200) {
         setStoreData(res.data);
       }
@@ -38,6 +42,17 @@ export default function OrderHistory() {
   useEffect(() => {
     getSpecificOrder();
   }, [getSpecificOrder]);
+  const handleCancelOrder = async (orderId) => {
+    try {
+      const res = await axios.patch(`http://localhost:5000/order/cancelOrder/${orderId}`);
+      if (res.status === 200) {
+        toast.success("Order canceled successfully!");
+        getSpecificOrder();
+      }
+    } catch (error) {
+      toast.error("Failed to cancel order");
+    }
+  };
 
   return (
     <>
@@ -48,13 +63,13 @@ export default function OrderHistory() {
               #
             </th>
             <th scope="col" className="text-center">
-             Your ID
+              Your ID
             </th>
             <th scope="col" className="text-center">
-            Your Email
+              Your Email
             </th>
             <th scope="col" className="text-center">
-            Your Phone
+              Your Phone
             </th>
             <th scope="col" className="text-center">
               Total Quantity
@@ -66,14 +81,14 @@ export default function OrderHistory() {
               Status
             </th>
             <th scope="col" className="text-center">
-              
+              Action
             </th>
           </tr>
         </MDBTableHead>
 
         <MDBTableBody>
           {storeData.map((item, index) => (
-            <tr className=""key={index}>
+            <tr className="" key={index}>
               <td className="text-center">
                 <strong>{index + 1}</strong>
               </td>
@@ -93,7 +108,10 @@ export default function OrderHistory() {
               </td>
 
               <td className="text-center">
-                <p className="fw-bold mb-1 ml-1"> {item.totalPrice.toFixed(2)}$</p>
+                <p className="fw-bold mb-1 ml-1">
+                  {" "}
+                  {item.totalPrice.toFixed(2)}$
+                </p>
               </td>
               <td className="text-center">
                 <p
@@ -101,6 +119,13 @@ export default function OrderHistory() {
                 >
                   {item.status}
                 </p>
+              </td>
+              <td className="text-center">
+                {item.status === "Pending" && ( // Add this condition
+                  <button type="button" className="btn btn-sl" onClick={() => handleCancelOrder(item._id)}>
+                    Cancel order
+                  </button>
+                )}
               </td>
             </tr>
           ))}

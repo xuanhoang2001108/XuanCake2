@@ -20,6 +20,8 @@ export default function OrderManagement() {
   const [basicModal, setBasicModal] = useState(false);
   const [storeData, setStoreData] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const [formData, setFormData] = useState({
     _id: "",
     email: "",
@@ -61,6 +63,17 @@ export default function OrderManagement() {
       });
     }
   };
+  const handleSearch = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5000/order/searchOrder?searchTerm=${searchTerm}`);
+      if (res.status === 200) {
+        setStoreData(res.data);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+  
   const handleSave = async (orderId) => {
     try {
       console.log("Edit Form Data:", editFormData);
@@ -120,7 +133,14 @@ export default function OrderManagement() {
     }
   };
   return (
-    <>
+    <>  <input
+    type="text"
+    placeholder="Search..."
+    value={searchTerm}
+    onChange={(event) => setSearchTerm(event.target.value)}
+  /><button className="btn btn-primary ml-2 mb-2" onClick={handleSearch}>
+  Search
+</button>
       <MDBTable align="middle">
         <MDBTableHead>
           <tr>

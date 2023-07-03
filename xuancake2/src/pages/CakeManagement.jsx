@@ -21,6 +21,8 @@ export default function CakeManagement() {
   const [storeData, setStoreData] = useState([]);
   const [selectedCakeType, setSelectedCakeType] = useState("");
   const [selectedCake, setSelectedCake] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const [formData, setFormData] = useState({
     image: "",
     name: "",
@@ -54,6 +56,7 @@ export default function CakeManagement() {
       });
     }
   };
+
   const editCake = (cake) => {
     setSelectedCake(cake);
     setFormData({
@@ -85,17 +88,18 @@ export default function CakeManagement() {
 
   const getAllCakeData = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/cake/getAllCake`);
+      const res = await axios.get(
+        `http://localhost:5000/cake/searchCake?searchTerm=${searchTerm}`
+      );
       if (res.status === 200) {
         setStoreData(res.data);
       }
-    } catch (error) {
-      toast.error(error.message);
-    }
+    } catch (error) {}
   };
+
   useEffect(() => {
     getAllCakeData();
-  }, []);
+  }, [searchTerm]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -114,6 +118,10 @@ export default function CakeManagement() {
         ...prevSelectedCake,
         [name]: value,
       }));
+    }
+
+    if (name === "searchTerm") {
+      setSearchTerm(value);
     }
   };
 
@@ -141,6 +149,7 @@ export default function CakeManagement() {
         toast.success(message);
         toggleShow();
         getAllCakeData();
+        setSearchTerm("");
       } else {
         const errorMessage = selectedCake
           ? "Failed to update cake"
@@ -154,6 +163,14 @@ export default function CakeManagement() {
 
   return (
     <>
+      <input
+      className="mb-2"
+        type="text"
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={(event) => setSearchTerm(event.target.value)}
+      />
+
       <MDBTable align="middle">
         <MDBTableHead>
           <tr>
@@ -178,7 +195,7 @@ export default function CakeManagement() {
 
         <MDBTableBody>
           {storeData.map((item, index) => (
-            <tr key={index}>
+            <tr key={item._id}>
               <td className="text-center">
                 <strong>{index + 1}</strong>
               </td>
@@ -225,8 +242,9 @@ export default function CakeManagement() {
           ))}
         </MDBTableBody>
       </MDBTable>
+
       <button
-        className="btn btn_primary"
+        className="btn btn-primary"
         rounded="true"
         size="sm"
         onClick={toggleShow}
@@ -241,21 +259,24 @@ export default function CakeManagement() {
                 {selectedCake ? "Edit Cake" : "Add Cake"}
               </MDBModalTitle>
 
-              <div className="btn btn-close" color="none" onClick={toggleShow}>
-                <i className="fa fa-times"></i>
-              </div>
+              <button
+                type="button"
+                className="btn-close"
+                onClick={toggleShow}
+                aria-label="Close"
+              ></button>
             </MDBModalHeader>
             <MDBModalBody>
               <Form.Control
                 className="mb-2"
-                value={selectedCake ? selectedCake.image : formData.image}
+                value={formData.image}
                 name="image"
                 placeholder="Image"
                 onChange={handleInputChange}
               />
               <Form.Control
                 className="mb-2"
-                value={selectedCake ? selectedCake.name : formData.name}
+                value={formData.name}
                 placeholder="Name"
                 name="name"
                 onChange={handleInputChange}
@@ -264,7 +285,7 @@ export default function CakeManagement() {
               <Form.Select
                 className="mb-2 "
                 name="type"
-                value={selectedCake ? selectedCake.type : formData.type}
+                value={formData.type}
                 onChange={handleInputChange}
               >
                 <option value="">Select Type</option>
@@ -274,36 +295,33 @@ export default function CakeManagement() {
 
               <Form.Control
                 className="mb-2"
-                value={selectedCake ? selectedCake.tax : formData.tax}
+                value={formData.tax}
                 placeholder="Tax"
                 name="tax"
                 onChange={handleInputChange}
               />
               <Form.Control
                 className="mb-2"
-                value={selectedCake ? selectedCake.price : formData.price}
+                value={formData.price}
                 placeholder="Price"
                 name="price"
                 onChange={handleInputChange}
               />
               <Form.Control
                 className="mb-2"
-                value={
-                  selectedCake ? selectedCake.description : formData.description
-                }
+                value={formData.description}
                 placeholder="Description"
                 name="description"
                 onChange={handleInputChange}
               />
             </MDBModalBody>
-
             <MDBModalFooter>
-              <div className="btn btn-primary btn-sm" onClick={toggleShow}>
+              <button className="btn btn-secondary" onClick={toggleShow}>
                 Close
-              </div>
-              <div className="btn btn-primary btn-sm" onClick={handleAdd}>
+              </button>
+              <button className="btn btn-primary" onClick={handleAdd}>
                 {selectedCake ? "Save" : "Add"}
-              </div>
+              </button>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>
