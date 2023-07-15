@@ -93,8 +93,8 @@ function Header() {
               data-ride="carousel"
             >
               <div className="carousel-inner">
-                <div className="img-box">
-                  <img src="images/slider-img1.png" />
+                <div className="img-thumbnail">
+                  <img src="images/slider-img1.png" className="img-thumbnail"/>
                 </div>
               </div>
             </div>

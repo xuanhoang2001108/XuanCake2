@@ -19,10 +19,7 @@
   margin-left: 17%; /* Adjust this value to match the width of the sidebar */
 }
 
-.content-scroll {
-  height: calc(100vh - 30px);
-  overflow-y: auto;
-}
+
 
   
   .sidebar__top {

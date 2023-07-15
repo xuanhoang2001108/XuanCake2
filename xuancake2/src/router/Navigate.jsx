@@ -14,6 +14,7 @@ import UserManagement from "../pages/UserManagement";
 import CakeManagement from "../pages/CakeManagement";
 import OrderManagement from "../pages/OrderManagement";
 import OrderHistory from "../pages/OrderHistory"
+import AddCake from "../pages/AddCake"
 
 const Navigate = () => {
   return (
@@ -33,6 +34,7 @@ const Navigate = () => {
         <Route path="/UserManagement" element={<UserManagement />}></Route>
         <Route path="/CakeManagement" element={<CakeManagement />}></Route>
         <Route path="/OrderManagement" element={<OrderManagement />}></Route>
+        <Route path="/AddCake" element={<AddCake />}></Route>
       </Route>
 
     

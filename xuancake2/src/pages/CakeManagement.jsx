@@ -15,6 +15,7 @@ import {
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 export default function CakeManagement() {
   const [basicModal, setBasicModal] = useState(false);
@@ -35,26 +36,15 @@ export default function CakeManagement() {
 
   const toggleShow = () => {
     setBasicModal(!basicModal);
-    setSelectedCake(null);
-    if (selectedCake) {
-      setFormData({
-        image: selectedCake.image,
-        name: selectedCake.name,
-        type: selectedCake.type,
-        tax: selectedCake.tax,
-        price: selectedCake.price,
-        description: selectedCake.description,
-      });
-    } else {
-      setFormData({
-        image: "",
-        name: "",
-        type: "",
-        tax: "",
-        price: "",
-        description: "",
-      });
-    }
+
+    setFormData({
+      image: selectedCake.image,
+      name: selectedCake.name,
+      type: selectedCake.type,
+      tax: selectedCake.tax,
+      price: selectedCake.price,
+      description: selectedCake.description,
+    });
   };
 
   const editCake = (cake) => {
@@ -125,7 +115,7 @@ export default function CakeManagement() {
     }
   };
 
-  const handleAdd = async () => {
+  const handleSave = async () => {
     const { image, name, type, tax, price, description } = formData;
 
     // Check if any required field is missing
@@ -135,26 +125,19 @@ export default function CakeManagement() {
     }
 
     try {
-      const res = selectedCake
-        ? await axios.patch(
-            `http://localhost:5000/cake/updateCake/${selectedCake._id}`,
-            formData
-          )
-        : await axios.post("http://localhost:5000/cake/postCake", formData);
+      const res = selectedCake;
+      await axios.patch(
+        `http://localhost:5000/cake/updateCake/${selectedCake._id}`,
+        formData
+      );
 
-      if (res.status >= 200 && res.status < 300) {
-        const message = selectedCake
-          ? "Cake updated successfully"
-          : "Cake added successfully";
-        toast.success(message);
+      if ((res.status = 200)) {
+        toast.success("Cake updated successfully");
         toggleShow();
         getAllCakeData();
         setSearchTerm("");
       } else {
-        const errorMessage = selectedCake
-          ? "Failed to update cake"
-          : "Failed to add cake";
-        toast.error(errorMessage);
+        toast.error("Failed to update cake");
       }
     } catch (error) {
       toast.error(error.message);
@@ -164,7 +147,7 @@ export default function CakeManagement() {
   return (
     <>
       <input
-      className="mb-2"
+        className="mb-2"
         type="text"
         placeholder="Search..."
         value={searchTerm}
@@ -243,22 +226,14 @@ export default function CakeManagement() {
         </MDBTableBody>
       </MDBTable>
 
-      <button
-        className="btn btn-primary"
-        rounded="true"
-        size="sm"
-        onClick={toggleShow}
-      >
+      <Link className="btn btn-primary" rounded="true" size="sm" to="/AddCake">
         Add
-      </button>
+      </Link>
       <MDBModal show={basicModal} setShow={setBasicModal} tabIndex="-1">
         <MDBModalDialog>
           <MDBModalContent>
             <MDBModalHeader>
-              <MDBModalTitle>
-                {selectedCake ? "Edit Cake" : "Add Cake"}
-              </MDBModalTitle>
-
+              <MDBModalTitle>Edit Cake</MDBModalTitle>
               <button
                 type="button"
                 className="btn-close"
@@ -274,6 +249,7 @@ export default function CakeManagement() {
                 placeholder="Image"
                 onChange={handleInputChange}
               />
+            
               <Form.Control
                 className="mb-2"
                 value={formData.name}
@@ -308,6 +284,7 @@ export default function CakeManagement() {
                 onChange={handleInputChange}
               />
               <Form.Control
+                  as="textarea"
                 className="mb-2"
                 value={formData.description}
                 placeholder="Description"
@@ -319,8 +296,8 @@ export default function CakeManagement() {
               <button className="btn btn-secondary" onClick={toggleShow}>
                 Close
               </button>
-              <button className="btn btn-primary" onClick={handleAdd}>
-                {selectedCake ? "Save" : "Add"}
+              <button className="btn btn-primary" onClick={handleSave}>
+                Save
               </button>
             </MDBModalFooter>
           </MDBModalContent>
