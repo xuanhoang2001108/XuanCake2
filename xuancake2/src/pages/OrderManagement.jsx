@@ -29,6 +29,8 @@ export default function OrderManagement() {
     totalQuantity: "",
     totalPrice: "",
     status: "",
+    paymentStatus: "",
+    createdAt: "",
   });
   const [editFormData, setEditFormData] = useState({
     _id: "",
@@ -37,6 +39,8 @@ export default function OrderManagement() {
     totalQuantity: "",
     totalPrice: "",
     status: "",
+    paymentStatus: "",
+    createdAt: "",
   });
   const getStatusColor = (status) => {
     switch (status) {
@@ -45,6 +49,10 @@ export default function OrderManagement() {
       case "Done":
         return "text-success";
       case "Reject":
+        return "text-danger";
+      case "Paid":
+        return "text-success";
+      case "Not Paid":
         return "text-danger";
       default:
         return "";
@@ -60,12 +68,16 @@ export default function OrderManagement() {
         totalQuantity: selectedOrder.totalQuantity,
         totalPrice: selectedOrder.totalPrice,
         status: selectedOrder.status,
+        paymentStatus: selectedOrder.paymentStatus,
+        createdAt: selectedOrder.createdAt,
       });
     }
   };
   const handleSearch = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/order/searchOrder?searchTerm=${searchTerm}`);
+      const res = await axios.get(
+        `http://localhost:5000/order/searchOrder?searchTerm=${searchTerm}`
+      );
       if (res.status === 200) {
         setStoreData(res.data);
       }
@@ -73,8 +85,8 @@ export default function OrderManagement() {
       toast.error(error.message);
     }
   };
-  
-  const handleSave = async (orderId) => {
+
+  const handleSave = async (_id) => {
     try {
       console.log("Edit Form Data:", editFormData);
       const res = await axios.patch(
@@ -114,6 +126,8 @@ export default function OrderManagement() {
       totalQuantity: order.totalQuantity,
       totalPrice: order.totalPrice,
       status: order.status,
+      paymentStatus: order.paymentStatus,
+      createdAt: order.createdAt,
     });
     setBasicModal(true);
   };
@@ -132,15 +146,21 @@ export default function OrderManagement() {
       toast.error(error.message);
     }
   };
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB");
+  };
   return (
-    <>  <input
-    type="text"
-    placeholder="Search..."
-    value={searchTerm}
-    onChange={(event) => setSearchTerm(event.target.value)}
-  /><button className="btn btn-primary ml-2 mb-2" onClick={handleSearch}>
-  Search
-</button>
+    <>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={(event) => setSearchTerm(event.target.value)}
+      />
+      <button className="btn btn-primary ml-2 mb-2" onClick={handleSearch}>
+        Search
+      </button>
       <MDBTable align="middle">
         <MDBTableHead>
           <tr>
@@ -166,6 +186,12 @@ export default function OrderManagement() {
               Status
             </th>
             <th scope="col" className="text-center">
+              Payment Status
+            </th>
+            <th scope="col" className="text-center">
+              Create At
+            </th>
+            <th scope="col" className="text-center">
               Actions
             </th>
           </tr>
@@ -179,7 +205,6 @@ export default function OrderManagement() {
               </td>
               <td className="text-center">
                 <p className="fw-bold mb-1 ml-1">
-               
                   {`${item._id.substring(0, 10)}...`}
                 </p>
               </td>
@@ -195,7 +220,6 @@ export default function OrderManagement() {
 
               <td className="text-center">
                 <p className="fw-bold mb-1 ml-1">
-                  {" "}
                   {item.totalPrice.toFixed(2)}$
                 </p>
               </td>
@@ -204,6 +228,20 @@ export default function OrderManagement() {
                   className={`fw-bold mb-1 ml-1 ${getStatusColor(item.status)}`}
                 >
                   {item.status}
+                </p>
+              </td>
+              <td className="text-center">
+                <p
+                  className={`fw-bold mb-1 ml-1 ${getStatusColor(
+                    item.paymentStatus
+                  )}`}
+                >
+                  {item.paymentStatus}
+                </p>
+              </td>
+              <td className="text-center">
+                <p className="fw-bold mb-1 ml-1">
+                  {formatDate(item.createdAt)}
                 </p>
               </td>
               <td className="text-center">
@@ -226,7 +264,6 @@ export default function OrderManagement() {
           ))}
         </MDBTableBody>
       </MDBTable>
-
       <MDBModal show={basicModal} setShow={setBasicModal} tabIndex="-1">
         <MDBModalDialog>
           <MDBModalContent>
@@ -299,6 +336,19 @@ export default function OrderManagement() {
                 <option value="Done">Done</option>
                 <option value="Reject">Reject</option>
               </Form.Select>
+              <Form.Select
+                className="mb-2 ml-2"
+                value={editFormData.paymentStatus}
+                onChange={(e) =>
+                  setEditFormData({
+                    ...editFormData,
+                    paymentStatus: e.target.value,
+                  })
+                }
+              >
+                <option value="Paid">Paid</option>
+                <option value="Not Paid">Not Paid</option>
+              </Form.Select>
             </MDBModalBody>
 
             <MDBModalFooter>
@@ -312,7 +362,6 @@ export default function OrderManagement() {
           </MDBModalContent>
         </MDBModalDialog>
       </MDBModal>
-
       <ToastContainer />
     </>
   );

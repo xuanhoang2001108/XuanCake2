@@ -2,17 +2,32 @@ import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import { Tab, Tabs } from "react-bootstrap";
 export default function StatisticManagement() {
   const totalEarningsChartRef = useRef(null);
   const totalOrdersChartRef = useRef(null);
+  const [totalProvisionalEarningsData, setTotalProvisionalEarningsData] =
+    useState([]);
   const [totalEarningsData, setTotalEarningsData] = useState([]);
   const [totalOrdersData, setTotalOrdersData] = useState([]);
+  const [totalPaidOrdersData, setTotalPaidOrdersData] = useState([]);
   const [cakeData, setCakeData] = useState([]);
   const doughnutChartRef = useRef(null);
+  const [activeTab, setActiveTab] = useState([]); 
+  const handleSelectTab = (eventKey) => {
+    setActiveTab(eventKey);
+  };
+
   useEffect(() => {
+    
     const fetchData = async () => {
       try {
+        const paidOrderRes = await axios.get(
+          "http://localhost:5000/order/calculateTotalPaidOrdersInMonth"
+        );
+        const provisionalEarningRes = await axios.get(
+          "http://localhost:5000/order/calculateTotalProvisionalEarning"
+        );
         const earningsRes = await axios.get(
           "http://localhost:5000/order/calculateTotalEarn"
         );
@@ -27,10 +42,16 @@ export default function StatisticManagement() {
           const earnings = earningsRes.data.monthlyEarnings;
           const orders = ordersRes.data.monthlyOrders;
           const cakes = cakeRes.data;
+          const provisionalEarning =
+            provisionalEarningRes.data.monthlyProvisionalEarnings;
+          const paidOrders = paidOrderRes.data.monthlyPaidOrders;
 
+          setTotalPaidOrdersData(paidOrders);
+          setTotalProvisionalEarningsData(provisionalEarning);
           setTotalEarningsData(earnings);
           setTotalOrdersData(orders);
           setCakeData(cakes);
+
           const earningsCtx = totalEarningsChartRef.current.getContext("2d");
           new Chart(earningsCtx, {
             type: "bar",
@@ -53,9 +74,16 @@ export default function StatisticManagement() {
                 {
                   label: "Total Earnings",
                   data: earnings,
-                  backgroundColor: "rgba(75, 192, 192, 0.2)",
-                  borderColor: "rgba(75, 192, 192, 1)",
-                  borderWidth: 1,
+                  backgroundColor: "rgba(191, 248, 248, 0.799)",
+                  borderColor: "#a8bf10",
+                  borderWidth: 0.5,
+                },
+                {
+                  label: "Total provisional earnings",
+                  data: provisionalEarning,
+                  backgroundColor: "rgba(204, 37, 37, 0.2)",
+                  borderColor: "#e5396c",
+                  borderWidth: 0.5,
                 },
               ],
             },
@@ -94,6 +122,13 @@ export default function StatisticManagement() {
                   data: orders,
                   backgroundColor: "rgba(54, 162, 235, 0.2)",
                   borderColor: "rgba(54, 162, 235, 1)",
+                  borderWidth: 1,
+                },
+                {
+                  label: "Total paid orders",
+                  data: paidOrders,
+                  backgroundColor: "rgba(54, 162, 235, 0.2)",
+                  borderColor: "#eb3636",
                   borderWidth: 1,
                 },
               ],
@@ -160,32 +195,45 @@ export default function StatisticManagement() {
 
   return (
     <div>
-      <div style={{ width: "400px", height: "400px", display: "inline-block" }}>
-        <canvas
-          ref={totalEarningsChartRef}
-          id="totalEarningsChart"
-          width={300}
-          height={200}
-        ></canvas>
-      </div>
-      <div style={{ width: "100px", display: "inline-block" }}></div>
-
-      <div style={{ width: "400px", height: "400px", display: "inline-block" }}>
-        <canvas
-          ref={totalOrdersChartRef}
-          id="totalOrdersChart"
-          width={300}
-          height={200}
-        ></canvas>
-      </div>
-      <div style={{ width: "400px", height: "400px", display: "inline-block" }}>
-        <canvas
-          ref={doughnutChartRef}
-          id="doughnutChart"
-          width={300}
-          height={200}
-        ></canvas>
-      </div>
+      <Tabs className="" activeKey={activeTab} onSelect={handleSelectTab}>
+        <Tab eventKey="earnings" title="Earnings">
+          <div
+            style={{ width: "400px", height: "400px", display: "inline-block" }}
+          >
+            <canvas
+              ref={totalEarningsChartRef}
+              id="totalEarningsChart"
+              width={300}
+              height={200}
+            ></canvas>
+          </div>{" "}
+        </Tab>
+        <div style={{ width: "100px", display: "inline-block" }}></div>
+        <Tab eventKey="orders" title="Orders">
+          <div
+            style={{ width: "400px", height: "400px", display: "inline-block" }}
+          >
+            <canvas
+              ref={totalOrdersChartRef}
+              id="totalOrdersChart"
+              width={300}
+              height={200}
+            ></canvas>
+          </div>
+        </Tab>
+        <Tab eventKey="cakes" title="Cakes">
+          <div
+            style={{ width: "400px", height: "400px", display: "inline-block" }}
+          >
+            <canvas
+              ref={doughnutChartRef}
+              id="doughnutChart"
+              width={300}
+              height={200}
+            ></canvas>
+          </div>
+        </Tab>
+      </Tabs>
     </div>
   );
 }

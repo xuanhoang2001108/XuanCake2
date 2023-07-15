@@ -115,8 +115,8 @@ function CakeDetail() {
                       <img id="main-image" src={cakeData.image} width="250" />
                     </div>
                     <div className="thumbnail text-center">
-                      <img className="mr-1" src={cakeData.image} width="70" />
-                      <img src={cakeData.image} width="70" />
+                      <img className="mr-1" src={cakeData.subImage} width="70" />
+                      <img src={cakeData.subImage} width="70" />
                     </div>
                   </div>
                 </div>

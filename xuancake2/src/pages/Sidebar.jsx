@@ -40,40 +40,33 @@ const Sidebar = () => {
     {
       path: "/CakeManagement",
       name: "Cake Management",
-    
     },
     {
       path: "/StatisticManagement",
       name: "Statistic Management",
-      
     },
     {
       path: "/UserManagement",
       name: "User Management",
-      
     },
     {
       path: "/OrderManagement",
       name: "Order Management",
-      
     },
   ];
 
   return (
     <div className="sidebar ">
       <div className="sidebar__top d-flex justify-content-center align-items-center">
-       
-          <div className="sidebar__top__logo">
-            <Link className="navbar-brand" href="/">
-              <strong>
-                {" "}
-                Xuan
-                <img src="images/logo.png" alt="" />
-              </strong>
-            </Link>
-          </div>
-          <p className="sidebar__top__text"></p>
-      
+        <div className="sidebar__top__logo">
+          <Link className="navbar-brand" href="/">
+            <strong>
+              Xuan
+              <img src="images/logo.png" alt="" />
+            </strong>
+          </Link>
+        </div>
+        <p className="sidebar__top__text"></p>
       </div>
 
       <div className="sidebar__content d-flex justify-content-center flex-column">

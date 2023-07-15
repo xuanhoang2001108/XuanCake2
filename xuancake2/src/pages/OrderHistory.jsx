@@ -19,6 +19,10 @@ export default function OrderHistory() {
         return "";
       case "Pending":
         return "text-primary";
+      case "Paid":
+        return "text-success";
+      case "Not Paid":
+        return "text-danger";
     }
   };
 
@@ -44,7 +48,9 @@ export default function OrderHistory() {
   }, [getSpecificOrder]);
   const handleCancelOrder = async (orderId) => {
     try {
-      const res = await axios.patch(`http://localhost:5000/order/cancelOrder/${orderId}`);
+      const res = await axios.patch(
+        `http://localhost:5000/order/cancelOrder/${orderId}`
+      );
       if (res.status === 200) {
         toast.success("Order canceled successfully!");
         getSpecificOrder();
@@ -53,7 +59,6 @@ export default function OrderHistory() {
       toast.error("Failed to cancel order");
     }
   };
-
   return (
     <>
       <MDBTable align="middle">
@@ -81,6 +86,9 @@ export default function OrderHistory() {
               Status
             </th>
             <th scope="col" className="text-center">
+              Payment Status
+            </th>
+            <th scope="col" className="text-center">
               Action
             </th>
           </tr>
@@ -88,7 +96,7 @@ export default function OrderHistory() {
 
         <MDBTableBody>
           {storeData.map((item, index) => (
-            <tr className="" key={index}>
+            <tr className="ml-2 mr-2" key={index}>
               <td className="text-center">
                 <strong>{index + 1}</strong>
               </td>
@@ -109,7 +117,6 @@ export default function OrderHistory() {
 
               <td className="text-center">
                 <p className="fw-bold mb-1 ml-1">
-                  {" "}
                   {item.totalPrice.toFixed(2)}$
                 </p>
               </td>
@@ -121,8 +128,21 @@ export default function OrderHistory() {
                 </p>
               </td>
               <td className="text-center">
+                <p
+                  className={`fw-bold mb-1 ml-1 ${getStatusColor(
+                    item.paymentStatus
+                  )}`}
+                >
+                  {item.paymentStatus}
+                </p>
+              </td>
+              <td className="text-center">
                 {item.status === "Pending" && ( // Add this condition
-                  <button type="button" className="btn btn-sl" onClick={() => handleCancelOrder(item._id)}>
+                  <button
+                    type="button"
+                    className="btn btn-sl"
+                    onClick={() => handleCancelOrder(item._id)}
+                  >
                     Cancel order
                   </button>
                 )}

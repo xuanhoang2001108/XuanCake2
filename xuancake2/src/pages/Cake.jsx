@@ -100,7 +100,7 @@ const Cake = () => {
           {storeData.map((item, index) => {
               if (item.type === "Salty") {
                 return (
-                  <div className="box" key={item._id}>
+                  <div className="col-md-3" key={item._id}>
                     <img src={item.image} alt="" />
                     <div className="link_box">
                       <h5 className="name">{item.name}</h5>
