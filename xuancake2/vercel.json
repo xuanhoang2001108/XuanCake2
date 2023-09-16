@@ -6,7 +6,5 @@
     "routes": [
         { "src": "/.*", "dest": "/" }
     ],
-    "regions": [
-        "sfo1"
-    ]
+     "rewrites": [{ "source": "/(.*)", "destination": "/" }] 
 }
