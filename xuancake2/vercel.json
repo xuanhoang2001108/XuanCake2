@@ -2,13 +2,13 @@
     "version": 2,
     "builds": [
       {
-        "src": "./src/index.js",
+        "src": ".xuancake2/src/index.js",
         "use": "@vercel/node"
       }
     ],
     "routes": [
       {
-        "src": "./src/index.js",
+        "src": ".xuancake2/src/index.js",
         "dest": "/"
       }
     ]
