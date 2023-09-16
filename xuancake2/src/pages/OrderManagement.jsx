@@ -76,7 +76,7 @@ export default function OrderManagement() {
   const handleSearch = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/order/searchOrder?searchTerm=${searchTerm}`
+        `https://xuan-cake-be-2.vercel.app/order/searchOrder?searchTerm=${searchTerm}`
       );
       if (res.status === 200) {
         setStoreData(res.data);
@@ -90,7 +90,7 @@ export default function OrderManagement() {
     try {
       console.log("Edit Form Data:", editFormData);
       const res = await axios.patch(
-        `http://localhost:5000/order/updateOrder/${editFormData._id}`,
+        `https://xuan-cake-be-2.vercel.app/order/updateOrder/${editFormData._id}`,
         editFormData
       );
       if (res.status === 200) {
@@ -107,7 +107,7 @@ export default function OrderManagement() {
 
   const getAllOrderData = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/order/getAllOrder`);
+      const res = await axios.get(`https://xuan-cake-be-2.vercel.app/order/getAllOrder`);
       if (res.status === 200) {
         setStoreData(res.data);
       }
@@ -134,7 +134,7 @@ export default function OrderManagement() {
   const deleteOrder = async (orderId) => {
     try {
       const res = await axios.delete(
-        `http://localhost:5000/order/deleteOrder/${orderId}`
+        `https://xuan-cake-be-2.vercel.app/order/deleteOrder/${orderId}`
       );
       if (res.status === 200) {
         toast.success("Order deleted successfully");

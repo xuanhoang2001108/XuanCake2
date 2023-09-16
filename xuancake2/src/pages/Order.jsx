@@ -92,7 +92,7 @@ export default function OrderDetails3() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/order/postOrder",
+        "https://xuan-cake-be-2.vercel.app/order/postOrder",
         formData
       );
 

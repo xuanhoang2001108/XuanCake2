@@ -80,7 +80,7 @@ function AddCake() {
         const formDataWithImage = { ...formData, image: imageUrl };
   
         const res = await axios.post(
-          "http://localhost:5000/cake/postCake",
+          "https://xuan-cake-be-2.vercel.app/cake/postCake",
           formDataWithImage
         );
   

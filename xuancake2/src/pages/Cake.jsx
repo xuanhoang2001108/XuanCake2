@@ -39,7 +39,7 @@ const Cake = () => {
     try {
       console.log();
 
-      const res = await axios.get(`http://localhost:5000/cake/getAllCake`);
+      const res = await axios.get(`https://xuan-cake-be-2.vercel.app/cake/getAllCake`);
       if (res.status === 200) {
         setStoreData(res.data);
       }

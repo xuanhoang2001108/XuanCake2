@@ -63,7 +63,7 @@ export default function CakeManagement() {
   const deleteCake = async (cakeId) => {
     try {
       const res = await axios.delete(
-        `http://localhost:5000/cake/deleteCake/${cakeId}`
+        `https://xuan-cake-be-2.vercel.app/cake/deleteCake/${cakeId}`
       );
       if (res.status === 200) {
         toast.success("Cake deleted successfully");
@@ -79,7 +79,7 @@ export default function CakeManagement() {
   const getAllCakeData = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/cake/searchCake?searchTerm=${searchTerm}`
+        `https://xuan-cake-be-2.vercel.app/cake/searchCake?searchTerm=${searchTerm}`
       );
       if (res.status === 200) {
         setStoreData(res.data);
@@ -127,7 +127,7 @@ export default function CakeManagement() {
     try {
       const res = selectedCake;
       await axios.patch(
-        `http://localhost:5000/cake/updateCake/${selectedCake._id}`,
+        `https://xuan-cake-be-2.vercel.app/cake/updateCake/${selectedCake._id}`,
         formData
       );
 

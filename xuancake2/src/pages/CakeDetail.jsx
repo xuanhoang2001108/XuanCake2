@@ -16,7 +16,7 @@ function CakeDetail() {
     const getCakeData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/cake/getSpecificCake/${productId}`
+          `https://xuan-cake-be-2.vercel.app/cake/getSpecificCake/${productId}`
         );
         if (res.status === 200) {
           setCakeData(res.data);
@@ -53,7 +53,7 @@ function CakeDetail() {
 
     try {
       const res = await axios.patch(
-        `http://localhost:5000/cake/updateCake/${productId}`,
+        `https://xuan-cake-be-2.vercel.app/cake/updateCake/${productId}`,
         {
           email,
           comment: commentInput,
