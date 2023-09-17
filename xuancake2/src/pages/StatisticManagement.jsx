@@ -6,20 +6,18 @@ import { Tab, Tabs } from "react-bootstrap";
 export default function StatisticManagement() {
   const totalEarningsChartRef = useRef(null);
   const totalOrdersChartRef = useRef(null);
-  const [totalProvisionalEarningsData, setTotalProvisionalEarningsData] =
-    useState([]);
-  const [totalEarningsData, setTotalEarningsData] = useState([]);
-  const [totalOrdersData, setTotalOrdersData] = useState([]);
-  const [totalPaidOrdersData, setTotalPaidOrdersData] = useState([]);
-  const [cakeData, setCakeData] = useState([]);
+  const [, setTotalProvisionalEarningsData] = useState([]);
+  const [, setTotalEarningsData] = useState([]);
+  const [, setTotalOrdersData] = useState([]);
+  const [, setTotalPaidOrdersData] = useState([]);
+  const [, setCakeData] = useState([]);
   const doughnutChartRef = useRef(null);
-  const [activeTab, setActiveTab] = useState([]); 
+  const [activeTab, setActiveTab] = useState([]);
   const handleSelectTab = (eventKey) => {
     setActiveTab(eventKey);
   };
 
   useEffect(() => {
-    
     const fetchData = async () => {
       try {
         const paidOrderRes = await axios.get(

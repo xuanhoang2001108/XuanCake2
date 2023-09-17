@@ -19,10 +19,10 @@ import "react-toastify/dist/ReactToastify.css";
 export default function OrderManagement() {
   const [basicModal, setBasicModal] = useState(false);
   const [storeData, setStoreData] = useState([]);
-  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [selectedOrder, ] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [formData, setFormData] = useState({
+  const [, setFormData] = useState({
     _id: "",
     email: "",
     phone: "",

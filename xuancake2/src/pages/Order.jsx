@@ -11,16 +11,16 @@ import {
 } from "mdb-react-ui-kit";
 import Form from "react-bootstrap/Form";
 import React, { useState, useEffect } from "react";
-import { getAuth } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function OrderDetails3() {
-  const auth = getAuth();
+
   const navigate = useNavigate();
-  const [showNoItemMessage, setShowNoItemMessage] = useState(false);
+  const [, setShowNoItemMessage] = useState(false);
   const [email, setEmail] = useState(null);
   const [username, setUsername] = useState(null);
   const [itemDetails, setItemDetails] = useState([]); // Define the itemDetails state

@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 export default function CakeManagement() {
   const [basicModal, setBasicModal] = useState(false);
   const [storeData, setStoreData] = useState([]);
-  const [selectedCakeType, setSelectedCakeType] = useState("");
+  const [, setSelectedCakeType] = useState("");
   const [selectedCake, setSelectedCake] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -249,7 +249,7 @@ export default function CakeManagement() {
                 placeholder="Image"
                 onChange={handleInputChange}
               />
-            
+
               <Form.Control
                 className="mb-2"
                 value={formData.name}
@@ -284,7 +284,7 @@ export default function CakeManagement() {
                 onChange={handleInputChange}
               />
               <Form.Control
-                  as="textarea"
+                as="textarea"
                 className="mb-2"
                 value={formData.description}
                 placeholder="Description"

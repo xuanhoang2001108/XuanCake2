@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
 import axios from "axios";
@@ -28,10 +28,10 @@ export default function OrderHistory() {
 
   const loggedInEmail = localStorage.getItem("email");
 
-  const filteredStoreData = storeData.filter(
-    (item) => item.email === loggedInEmail
-  );
-  const getSpecificOrder = async () => {
+  // const filteredStoreData = storeData.filter(
+  //   (item) => item.email === loggedInEmail
+  // );
+  const getSpecificOrder = useCallback(async () => {
     try {
       const res = await axios.get(
         `https://xuancakebe.onrender.com/order/getSpecificOrder/${loggedInEmail}`
@@ -42,7 +42,8 @@ export default function OrderHistory() {
     } catch (error) {
       toast.error("No order");
     }
-  };
+  },[loggedInEmail]);
+  
   useEffect(() => {
     getSpecificOrder();
   }, [getSpecificOrder]);

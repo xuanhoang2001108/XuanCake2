@@ -18,28 +18,28 @@ const Footer = () => {
       <div className="info_contact">
         <div className="row">
           <div className="col-md-4">
-            <a href="">
+            <p href="">
               <img src="images/location.png" alt=""/>
               <span>
                 123, 9 districts, HCM City
               </span>
-            </a>
+            </p>
           </div>
           <div className="col-md-4">
-            <a href="">
+            <p href="">
               <img src="images/call.png" alt=""/>
               <span>
                 Call : +84123456
               </span>
-            </a>
+            </p>
           </div>
           <div className="col-md-4">
-            <a href="">
+            <p href="">
               <img src="images/mail.png" alt=""/>
               <span>
                 xuancake@gmail.com
               </span>
-            </a>
+            </p>
           </div>
         </div>
       </div>
@@ -57,24 +57,24 @@ const Footer = () => {
         <div className="col-md-4 col-lg-3">
           <div className="info_social">
             <div>
-              <a href="">
+              <p href="">
                 <img src="images/facebook-logo-button.png" alt=""/>
-              </a>
+              </p>
             </div>
             <div>
-              <a href="">
+              <p href="">
                 <img src="images/twitter-logo-button.png" alt=""/>
-              </a>
+              </p>
             </div>
             <div>
-              <a href="#">
+              <p href="#">
                 <img src="images/linkedin.png" alt=""/>
-              </a>
+              </p>
             </div>
             <div>
-              <a href="#">
+              <p href="#">
                 <img src="images/instagram.png" alt=""/>
-              </a>
+              </p>
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@ const Footer = () => {
     <section className="container-fluid footer_section">
     <p>
       &copy; <span id="displayYear"></span> All Rights Reserved By
-      <a href=""> xuanhoangdev</a>
+      <p href=""> xuanhoangdev</p>
     </p>
   </section>
   </div>

@@ -25,8 +25,9 @@ const Sidebar = () => {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        // Xóa email từ localStorage
-        alert(email + " " + " logged out successfully!");
+      
+        alert(email + " logged out successfully!");
+
         localStorage.removeItem("email");
         // Điều hướng về trang đăng nhập
         navigate("/");

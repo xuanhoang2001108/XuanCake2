@@ -14,14 +14,14 @@ function Header() {
   const auth = getAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState(null);
-  const [currentUserEmail, setCurrentUserEmail] = useState("");
-  const [cartItems, setCartItems] = useState(
+  const [, setCurrentUserEmail] = useState("");
+  const [, setCartItems] = useState(
     JSON.parse(localStorage.getItem("cartItems")) || []
   );
   const [username, setUsername] = useState(null);
   useEffect(() => {
     // Kiểm tra xem người dùng đã đăng nhập chưa
-    const loggedInEmail = localStorage.getItem("email");
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setEmail(user.email);
@@ -32,7 +32,7 @@ function Header() {
         setUsername(null);
       }
     });
-  }, []);
+  }, [auth]);
   const handleNavOrder = () => {
     navigate("/OrderHistory");
   };
@@ -67,10 +67,6 @@ function Header() {
     }
   };
 
-  const totalQuantity = cartItems.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
 
   return (
     <>
@@ -81,7 +77,7 @@ function Header() {
             <Link className="navbar-brand" href="/">
               <span>
                 Xuan
-                <img src="images/logo.png" />
+                <img src="images/logo.png"alt="" />
               </span>
             </Link>
           </div>
@@ -94,7 +90,7 @@ function Header() {
             >
               <div className="carousel-inner">
                 <div className="img-thumbnail">
-                  <img src="images/slider-img1.png" className="img-thumbnail"/>
+                  <img src="images/slider-img1.png" className="img-thumbnail"alt=""/>
                 </div>
               </div>
             </div>

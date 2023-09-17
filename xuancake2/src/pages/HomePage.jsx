@@ -12,22 +12,22 @@ const items = [
   <img
     src="images/shop-img.png"
     onDragStart={handleDragStart}
-    role="presentation"
+    role="presentation"alt=""
   />,
   <img
     src="images/slider-img2.png"
     onDragStart={handleDragStart}
-    role="presentation"
+    role="presentation"alt=""
   />,
   <img
     src="images/slider-img3.png"
     onDragStart={handleDragStart}
-    role="presentation"
+    role="presentation"alt=""
   />,
   <img
     src="images/slider-img4.png"
     onDragStart={handleDragStart}
-    role="presentation"
+    role="presentation"alt=""
   />,
 ];
 

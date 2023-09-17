@@ -77,7 +77,7 @@ const Cart = () => {
         totalAmount: item.totalAmount,
       };
     });
-    const itemNames = cartItems.map((item) => item.name);
+     cartItems.map((item) => item.name);
     // Save total amount and number of products to local storage
     localStorage.setItem("totalAmount", totalAmount);
     localStorage.setItem("numProducts", totalQuantity);
