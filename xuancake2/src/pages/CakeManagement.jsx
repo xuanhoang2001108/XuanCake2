@@ -86,9 +86,9 @@ export default function CakeManagement() {
       }
     } catch (error) {}
   };
-
+  getAllCakeData(); 
   useEffect(() => {
-    getAllCakeData();
+  
   }, [searchTerm]);
 
   const handleInputChange = (event) => {
