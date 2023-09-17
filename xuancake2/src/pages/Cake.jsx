@@ -39,7 +39,7 @@ const Cake = () => {
     try {
       console.log();
 
-      const res = await axios.get(`https://xuan-cake-be-2.vercel.app/cake/getAllCake`);
+      const res = await axios.get(`https://xuancakebe.onrender.com/cake/getAllCake`);
       if (res.status === 200) {
         setStoreData(res.data);
       }
@@ -95,12 +95,11 @@ const Cake = () => {
             <h2>Salty cakes</h2>
           </div>
         </div>
-        <div className="container-fluid">
-          <div className="cake_container">
-          {storeData.map((item, index) => {
+        <div className="cake_container">
+            {storeData.map((item, index) => {
               if (item.type === "Salty") {
                 return (
-                  <div className="col-md-3" key={item._id}>
+                  <div className="box" key={item._id}>
                     <img src={item.image} alt="" />
                     <div className="link_box">
                       <h5 className="name">{item.name}</h5>
@@ -122,7 +121,6 @@ const Cake = () => {
               }
             })}
           </div>
-        </div>
       </section>
     </div>
   );

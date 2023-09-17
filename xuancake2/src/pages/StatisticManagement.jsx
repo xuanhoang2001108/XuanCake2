@@ -23,19 +23,19 @@ export default function StatisticManagement() {
     const fetchData = async () => {
       try {
         const paidOrderRes = await axios.get(
-          "https://xuan-cake-be-2.vercel.app/order/calculateTotalPaidOrdersInMonth"
+          "https://xuancakebe.onrender.com/order/calculateTotalPaidOrdersInMonth"
         );
         const provisionalEarningRes = await axios.get(
-          "https://xuan-cake-be-2.vercel.app/order/calculateTotalProvisionalEarning"
+          "https://xuancakebe.onrender.com/order/calculateTotalProvisionalEarning"
         );
         const earningsRes = await axios.get(
-          "https://xuan-cake-be-2.vercel.app/order/calculateTotalEarn"
+          "https://xuancakebe.onrender.com/order/calculateTotalEarn"
         );
         const ordersRes = await axios.get(
-          "https://xuan-cake-be-2.vercel.app/order/calculateTotalOrdersInMonth"
+          "https://xuancakebe.onrender.com/order/calculateTotalOrdersInMonth"
         );
         const cakeRes = await axios.get(
-          "https://xuan-cake-be-2.vercel.app/cake/calculateCake"
+          "https://xuancakebe.onrender.com/cake/calculateCake"
         );
 
         if (earningsRes.status === 200 && ordersRes.status === 200) {

@@ -34,7 +34,7 @@ export default function OrderHistory() {
   const getSpecificOrder = async () => {
     try {
       const res = await axios.get(
-        `https://xuan-cake-be-2.vercel.app/order/getSpecificOrder/${loggedInEmail}`
+        `https://xuancakebe.onrender.com/order/getSpecificOrder/${loggedInEmail}`
       );
       if (res.status === 200) {
         setStoreData(res.data);
@@ -49,7 +49,7 @@ export default function OrderHistory() {
   const handleCancelOrder = async (orderId) => {
     try {
       const res = await axios.patch(
-        `https://xuan-cake-be-2.vercel.app/order/cancelOrder/${orderId}`
+        `https://xuancakebe.onrender.com/order/cancelOrder/${orderId}`
       );
       if (res.status === 200) {
         toast.success("Order canceled successfully!");
