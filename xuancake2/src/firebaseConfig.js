@@ -4,15 +4,14 @@ import "firebase/compat/database";
 import "firebase/compat/storage";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  apiKey: "AIzaSyDopFksmj44jRTm0uEOCk245e8c-u-TksM",
+  authDomain: "xuancakes.firebaseapp.com",
+  projectId: "xuancakes",
   storageBucket: "xuancakes.appspot.com",
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+  messagingSenderId: "445980151921",
+  appId: "1:445980151921:web:91ddd0d861c42b0a29cbd0",
+  measurementId: "G-TGNVCDE22E",
 };
-
 
   firebase.initializeApp(firebaseConfig);
 
