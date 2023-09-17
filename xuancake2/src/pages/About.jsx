@@ -12,6 +12,7 @@ const itemStaff = [
       src="images/team-1.jpg.webp"
       onDragStart={handleDragStart}
       role="presentation"
+      alt=""
     />
     <span className="d-inline-flex mt-4">Hanry Bulter</span>
   </div>,
@@ -21,6 +22,7 @@ const itemStaff = [
       src="images/team-2.jpg"
       onDragStart={handleDragStart}
       role="presentation"
+      alt=""
     />
     <span className="d-inline-flex mt-4">Mary May</span>
   </div>,
@@ -30,6 +32,7 @@ const itemStaff = [
       src="images/team-3.jpg"
       onDragStart={handleDragStart}
       role="presentation"
+      alt=""
     />
     <span className="d-inline-flex mt-4">Jone Mark</span>
   </div>,
