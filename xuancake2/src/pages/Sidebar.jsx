@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {
   getAuth,
   signOut,
-} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+} from "firebase/auth";
 import { Link, NavLink } from "react-router-dom";
 import "../style/Sidebar.css";
 const Sidebar = () => {

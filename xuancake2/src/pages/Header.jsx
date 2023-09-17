@@ -3,7 +3,7 @@ import {
   getAuth,
   signOut,
   onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+} from "firebase/auth";
 import { Link } from "react-router-dom";
 import "react-alice-carousel/lib/alice-carousel.css";
 import NavDropdown from "react-bootstrap/NavDropdown";

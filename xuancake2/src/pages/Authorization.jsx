@@ -5,7 +5,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
-} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+} from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 function SignIn() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

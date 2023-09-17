@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
-import { getAuth } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+import { getAuth } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 function CakeDetail() {
   const auth = getAuth();
