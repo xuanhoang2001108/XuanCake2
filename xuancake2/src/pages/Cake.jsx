@@ -2,11 +2,11 @@ import { React, useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 const Cake = () => {
   const [storeData, setStoreData] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
-  const { productId } = useParams();
+  const [, setCartItems] = useState([]);
+
   const addToCart = (item) => {
     let cartItems = localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems"))
@@ -63,7 +63,7 @@ const Cake = () => {
         </div>
         <div className="container-fluid">
           <div className="cake_container">
-            {storeData.map((item, index) => {
+            {storeData.map((item, index)  => {
               if (item.type === "Sweet") {
                 return (
                   <div className="box" key={item._id}>
@@ -79,12 +79,14 @@ const Cake = () => {
                           <i className="fa-solid fa-arrow-right ml-1"></i>
                         </Link>
                       </p>
-                      <a className="my-link" onClick={() => addToCart(item)}>
+                      <p className="my-link" onClick={() => addToCart(item)}>
                         Add to cart
-                      </a>
+                      </p>
                     </div>
                   </div>
                 );
+              }else {
+                return null; 
               }
             })}
           </div>
@@ -112,12 +114,14 @@ const Cake = () => {
                           <i className="fa-solid fa-arrow-right ml-1"></i>
                         </Link>
                       </p>
-                      <a className="my-link" onClick={() => addToCart(item)}>
+                      <p className="my-link" onClick={() => addToCart(item)}>
                         Add to cart
-                      </a>
+                      </p>
                     </div>
                   </div>
                 );
+              }else {
+                return null;
               }
             })}
           </div>

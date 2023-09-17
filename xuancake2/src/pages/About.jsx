@@ -40,7 +40,7 @@ const itemStaff = [
     <div className="mb-2">Decorator</div>
     <img
       src="images/team-4.jpg"
-      onDragStart={handleDragStart}
+      onDragStart={handleDragStart} alt=""
       role="presentation"
     />
     <span className="d-inline-flex mt-4">Jame Hardy</span>

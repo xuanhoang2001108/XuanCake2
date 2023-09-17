@@ -8,7 +8,7 @@ import { storage } from "../firebaseConfig";
 function AddCake() {
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState("");
+  const [, setImageUrl] = useState("");
   const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState({
     image: "",
