@@ -7,11 +7,11 @@ import { ToastContainer, toast } from "react-toastify";
 function CakeDetail() {
   const auth = getAuth();
   const [email, setEmail] = useState(null);
-  const [username, setUsername] = useState(null);
+  const [, setUsername] = useState(null);
   const [commentInput, setCommentInput] = useState("");
   const [cakeData, setCakeData] = useState(null);
   const { productId } = useParams();
-  const [cartItems, setCartItems] = useState([]);
+  const [, setCartItems] = useState([]);
   useEffect(() => {
     const getCakeData = async () => {
       try {
@@ -112,11 +112,11 @@ function CakeDetail() {
                 <div className="col-md-6">
                   <div className="images p-3">
                     <div className="text-center p-4">
-                      <img id="main-image" src={cakeData.image} width="250" />
+                      <img id="main-image" src={cakeData.image} width="250" alt =""/>
                     </div>
                     <div className="thumbnail text-center">
-                      <img className="mr-1" src={cakeData.subImage} width="70" />
-                      <img src={cakeData.subImage} width="70" />
+                      <img className="mr-1" src={cakeData.subImage} width="70" alt =""/>
+                      <img src={cakeData.subImage} width="70" alt =""/>
                     </div>
                   </div>
                 </div>
