@@ -1,6 +1,8 @@
 {
-  "builds": [{ "src": "./xuancake2/package.json", "use": "@vercel/node" }],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/index.js" },
-    { "src": "/(.*)", "dest": "/index.html" }]
-}
+    "builds": [{ "src": "./xuancake2/xuancake2/package.json", "use": "@vercel/node" }],
+    "routes": [
+      { "src": "/api/(.*)", "dest": "/api/index.js" },
+      { "src": "/(.*)", "dest": "/index.html" }
+    ]
+  }
+  
